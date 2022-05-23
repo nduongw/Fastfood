@@ -17,6 +17,7 @@
         <br>${message}
         <br><br>           
         <button type="submit">Login</button>
+        <a href="${pageContext.request.contextPath}/home">Back</a>
 	</form>
 	
 </body>

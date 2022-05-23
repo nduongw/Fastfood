@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -37,8 +39,8 @@ public class Login extends HttpServlet {
 		String userName = request.getParameter("email");
 		String passwordString = request.getParameter("password");
 		
-		System.out.println(userName);
-		System.out.println(passwordString);
+		System.out.println("Login" + userName);
+		System.out.println("Login" +passwordString);
 		
 		DBUtils utils = new DBUtils();
 		
@@ -47,17 +49,24 @@ public class Login extends HttpServlet {
 		
 		try {
 			User cUser = DBUtils.findUser(dbcon, userName, passwordString);
+			String destPage = "WEB-INF/views/login.jsp";
+			
 			if (cUser == null) {
 				String message = "Cant found user email";
                 request.setAttribute("message", message);
 			} else {
 				String message = "Hello dungbui";
                 request.setAttribute("message", message);
-                String destPage = "WEB-INF/views/index.jsp";
                 
-                RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
-                dispatcher.forward(request, response);
+                HttpSession session = request.getSession();
+                session.setAttribute("user", cUser);
+                
+                	destPage = "WEB-INF/views/user_index.jsp";
 			}
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
+            dispatcher.forward(request, response);
+            
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

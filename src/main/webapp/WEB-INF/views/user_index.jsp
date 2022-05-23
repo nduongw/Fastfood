@@ -4,12 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Homepage</title>
+<title>Insert title here</title>
 </head>
 <body>
 	<a href="${pageContext.request.contextPath}/home">Home</a>
-	<a href="${pageContext.request.contextPath}/login">Login</a>
+	<a href="${pageContext.request.contextPath}/logout">Logout</a>
 	<a href="${pageContext.request.contextPath}/register">Register</a>
-	
 </body>
 </html>

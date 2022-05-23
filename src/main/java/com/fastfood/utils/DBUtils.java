@@ -32,6 +32,30 @@ public class DBUtils {
 		return null;
 	}
 	
+	public static int addUser(Connection connection, String userName, String password, String email, String name, String phone) throws SQLException {
+		String sql = "INSERT INTO `users`(account, password, email, point, name, phone, membership) "
+				+ "VALUES(?, ?, ?, 0, ?, ?, 0)";
+		
+		PreparedStatement pstm = connection.prepareStatement(sql);
+		
+		pstm.setString(1, userName);
+		pstm.setString(2, password);
+		pstm.setString(3, email);
+		pstm.setString(4, name);
+		pstm.setString(5, phone);
+		
+		int result = pstm.executeUpdate();
+				
+		if (result != 0) {
+			System.out.println("Done");
+			return 1;
+		} else {
+			System.out.println("Not done");
+		}
+		
+		return 0;
+	}
+	
 	public static List<Dish> queryDish(Connection connection) throws SQLException {
 		String sql = "SELECT * FROM dishes";
 		
