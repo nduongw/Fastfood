@@ -32,6 +32,24 @@ public class DBUtils {
 		return null;
 	}
 	
+	public static int addDish(Connection connection, String name, String category, String description, int price) throws SQLException {
+		String sql = "SELECT * FROM categories WHERE category_name = '" + category + "'";
+		
+		PreparedStatement pstm = connection.prepareStatement(sql);
+		
+		ResultSet rs = pstm.executeQuery();
+		if (rs.next()) {
+			int category_id = rs.getInt("category_id");
+			sql = "INSERT INTO dishes (name, category_id, description, price) VALUES ('"
+					+ name + "', " + category_id + ", '" + description + "', " + price + ");";
+			connection.prepareStatement(sql).executeUpdate();
+			System.out.println("Added successfully");
+			return 1;
+		}
+		
+		return 0;
+	}
+	
 	public static List<Dish> queryDish(Connection connection) throws SQLException {
 		String sql = "SELECT * FROM dishes";
 		

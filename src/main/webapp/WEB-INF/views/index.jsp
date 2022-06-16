@@ -10,5 +10,6 @@
 	<a href="${pageContext.request.contextPath}/home">Home</a>
 	<a href="${pageContext.request.contextPath}/login">Login</a>
 	<a href="${pageContext.request.contextPath}/register">Register</a>
+	<a href="${pageContext.request.contextPath}/add">Add Dish</a>
 </body>
 </html>
