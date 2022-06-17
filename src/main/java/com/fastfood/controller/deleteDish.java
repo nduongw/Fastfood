@@ -14,40 +14,35 @@ import java.sql.SQLException;
 import com.fastfood.model.ConnectDatabase;
 import com.fastfood.utils.DBUtils;
 
-@WebServlet(urlPatterns = {"/add"})
-public class addDish extends HttpServlet {
+@WebServlet(urlPatterns = {"/delete"})
+public class deleteDish extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public addDish() {
+    public deleteDish() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/addDish.jsp");
-		
-		dispatcher.forward(request, response);
+		String destPage = "WEB-INF/views/DishList.jsp";
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
+        dispatcher.forward(request, response);
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String name = request.getParameter("name");
-		String category = request.getParameter("category");
-		String description = request.getParameter("description");
-		int price = Integer.parseInt(request.getParameter("price"));
-				
+		System.out.println(request.getParameter("id"));
+		int id = Integer.parseInt(request.getParameter("id"));
 		ConnectDatabase con = new ConnectDatabase();
 		Connection dbcon = con.getJDBCConnection();
 		
 		try {
-			int result = DBUtils.addDish(dbcon, name, category, description, price);
+			int result = DBUtils.deleteDish(dbcon, id);
 			if (result == 0) {
-				String message = "Cant add";
-                request.setAttribute("message", message);
+				System.out.println("Cant delete");
 			} else {
-				String message = "Added successfully";
-                request.setAttribute("message", message);
-                String destPage = "WEB-INF/views/index.jsp";
+				System.out.println("Delete successfully");
+                String destPage = "WEB-INF/views/DishList.jsp";
                 
                 RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
                 dispatcher.forward(request, response);

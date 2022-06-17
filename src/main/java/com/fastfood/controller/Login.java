@@ -39,9 +39,7 @@ public class Login extends HttpServlet {
 		
 		System.out.println(userName);
 		System.out.println(passwordString);
-		
-		DBUtils utils = new DBUtils();
-		
+				
 		ConnectDatabase con = new ConnectDatabase();
 		Connection dbcon = con.getJDBCConnection();
 		

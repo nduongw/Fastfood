@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.fastfood.entity.Dish;
 import com.fastfood.entity.User;
+import com.fastfood.model.ConnectDatabase;
 
 public class DBUtils {
 	public static User findUser(Connection connection, String userName, String password) throws SQLException {
@@ -59,7 +60,7 @@ public class DBUtils {
 		
 		List<Dish> dishList = new ArrayList<Dish>();
 		
-		if (rs.next()) {
+		while (rs.next()) {
 			int dish_id = rs.getInt("dish_id");
 			String name = rs.getString("name");
 			int category_id = rs.getInt("category_id");
@@ -72,4 +73,31 @@ public class DBUtils {
 		
 		return dishList;
 	}
+	
+	public static int deleteDish(Connection connection, int dish_id) throws SQLException {
+		String sql = "DELETE FROM dishes WHERE dish_id = " + dish_id;
+		
+		try {
+			connection.prepareStatement(sql).executeUpdate();
+			return 1;
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+//	public static void main(String[] args) {
+//		ConnectDatabase con = new ConnectDatabase();
+//		Connection dbcon = con.getJDBCConnection();
+//		
+//		try {
+//			List<Dish> list = DBUtils.queryDish(dbcon);
+//			for(Dish o: list) {
+//				System.out.println(o.getName());
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			System.out.print("failed");
+//		}
+//	}
 }
