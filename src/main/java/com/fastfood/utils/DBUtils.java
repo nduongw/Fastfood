@@ -75,7 +75,7 @@ public class DBUtils {
 		return 0;
 	}
 	
-	public static List<Dish> queryDish(Connection connection) throws SQLException {
+	public static List<Dish> queryallDish(Connection connection) throws SQLException {
 		String sql = "SELECT * FROM dishes";
 		
 		PreparedStatement pstm = connection.prepareStatement(sql);
@@ -96,6 +96,41 @@ public class DBUtils {
 		}
 		
 		return dishList;
+	}
+	
+	public static Dish queryDish(Connection connection, int id) throws SQLException {
+		String sql = "SELECT * FROM dishes WHERE dish_id = " + id;
+		
+		PreparedStatement pstm = connection.prepareStatement(sql);
+		
+		ResultSet rs = pstm.executeQuery();
+		Dish dish = null;
+		
+		while (rs.next()) {
+			String name = rs.getString("name");
+			int category_id = rs.getInt("category_id");
+			String description = rs.getString("description");
+			int price = rs.getInt("price");
+			
+			dish = new Dish(id, name, category_id, description, price);
+		}
+		
+		return dish;
+	}
+	
+	public static int editDish(Connection connection, int id, String name, int category_id, String description, int price) throws SQLException {
+		String sql = "UPDATE dishes "
+				+ "SET name = '" + name + "', category_id = " + category_id + 
+				", description = '" + description + "', price = " + price + 
+				" WHERE dish_id = " + id + ";";
+		
+		try {
+			connection.prepareStatement(sql).executeUpdate();
+			return 1;
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 	public static int deleteDish(Connection connection, int dish_id) throws SQLException {

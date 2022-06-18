@@ -100,7 +100,7 @@
                 <div class="col-sm-9">
                     <div class="row">
                         <c:forEach items="${ListD}" var="o">
-                            <form class="col-12 col-md-6 col-lg-4" action="${pageContext.request.contextPath}/delete" method="post">
+                            <form class="col-12 col-md-6 col-lg-4">
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title show_txt"><a href="/dish-detail/${o.dish_id}" title="View Product">${o.name}</a></h4>
@@ -109,8 +109,8 @@
                                                 <button class="btn btn-danger btn-block">${o.price} $</button>
                                             </div>
                                             <div class="col">
-                                                <button name="id" value="${o.dish_id}" type="submit" class="btn btn-success btn-block">Delete</button>
-                                                <a href="dish-edit/${o.dish_id}" class="btn btn-success btn-block">Edit</a>
+                                                <button formaction="${pageContext.request.contextPath}/delete" formmethod="post" name="id" value="${o.dish_id}" type="submit" class="btn btn-success btn-block">Delete</button>
+                                                <button formaction="${pageContext.request.contextPath}/edit" formmethod="get" name="id" value="${o.dish_id}" type="submit" class="btn btn-success btn-block">Edit</button>
                                             </div>
                                         </div>
                                     </div>

@@ -43,7 +43,7 @@ public class deleteDish extends HttpServlet {
 			} else {
 				System.out.println("Delete successfully");
                 String destPage = "WEB-INF/views/DishList.jsp";
-                
+                                
                 RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
                 dispatcher.forward(request, response);
 			}

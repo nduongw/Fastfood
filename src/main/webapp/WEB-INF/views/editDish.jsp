@@ -4,25 +4,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Add Dish</title>
+<title>Edit Dish</title>
 </head>
 <body>
-	<h1>Add</h1>
-	<form action="${pageContext.request.contextPath}/add" method="post">
+	<h1>Edit</h1>
+	<form action="${pageContext.request.contextPath}/edit" name="id" method="post">
 		<label for="name">Name:</label>
-        <input name="name" size="30"></input>
+        <input name="name" size="30" value="${info.name}"/>
         <br><br>
         <label for="category">Category:</label>
-        <input name="category" size="30" />
+        <input name="category_id" size="30" value="${info.category_id}" />
         <br><br>
         <label for="description">Description:</label>
-        <input name="description" size="30" />
+        <input name="description" size="30" value="${info.description}"/>
         <br><br>
-        <label for="price">Price:</label>
-        <input name="price" size="30" />
+        <label for="price" >Price:</label>
+        <input name="price" size="30" value="${info.price}"/>
         <br>${message}
         <br><br>           
-        <button type="submit">Add</button>
+        <button type="submit" name="id" value="${info.dish_id}">Confirm</button>
 	</form>
 	
 </body>

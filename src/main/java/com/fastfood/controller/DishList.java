@@ -30,7 +30,7 @@ public class DishList extends HttpServlet {
 		Connection dbcon = con.getJDBCConnection();
 		
 		try {
-			List<Dish> result = DBUtils.queryDish(dbcon);
+			List<Dish> result = DBUtils.queryallDish(dbcon);
 			if (result == null) {
 				System.out.println("Cant show");
 			} else {
