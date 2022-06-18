@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fastfood.entity.Dish;
+import com.fastfood.entity.Category;
 import com.fastfood.entity.User;
 import com.fastfood.model.ConnectDatabase;
 
@@ -96,6 +97,26 @@ public class DBUtils {
 		}
 		
 		return dishList;
+	}
+	
+	public static List<Category> queryallCategory(Connection connection) throws SQLException {
+		String sql = "SELECT * FROM categories";
+		
+		PreparedStatement pstm = connection.prepareStatement(sql);
+		
+		ResultSet rs = pstm.executeQuery();
+		
+		List<Category> cateList = new ArrayList<Category>();
+		
+		while (rs.next()) {
+			int id = rs.getInt("category_id");
+			String name = rs.getString("category_name");
+			
+			Category cate = new Category(id, name);
+			cateList.add(cate);
+		}
+		
+		return cateList;
 	}
 	
 	public static Dish queryDish(Connection connection, int id) throws SQLException {

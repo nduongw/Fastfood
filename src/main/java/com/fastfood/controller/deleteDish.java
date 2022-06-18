@@ -44,8 +44,7 @@ public class deleteDish extends HttpServlet {
 				System.out.println("Delete successfully");
                 String destPage = "WEB-INF/views/DishList.jsp";
                                 
-                RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
-                dispatcher.forward(request, response);
+                response.sendRedirect("./list"); 
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

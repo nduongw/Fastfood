@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fastfood.entity.Dish;
+import com.fastfood.entity.Category;
 import com.fastfood.model.ConnectDatabase;
 import com.fastfood.utils.DBUtils;
 
@@ -31,12 +32,14 @@ public class DishList extends HttpServlet {
 		
 		try {
 			List<Dish> result = DBUtils.queryallDish(dbcon);
-			if (result == null) {
+			List<Category> cateList = DBUtils.queryallCategory(dbcon);
+			if (result == null || cateList == null) {
 				System.out.println("Cant show");
 			} else {
 //				System.out.println("Done");
                 String destPage = "WEB-INF/views/DishList.jsp";
                 request.setAttribute("ListD", result);
+                request.setAttribute("ListC", cateList);
                 RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
                 dispatcher.forward(request, response);
 			}

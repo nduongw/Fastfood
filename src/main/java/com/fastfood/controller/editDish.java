@@ -66,11 +66,8 @@ public class editDish extends HttpServlet {
                 request.setAttribute("message", message);
 			} else {
 				String message = "Editted successfully";
-                request.setAttribute("message", message);
-                String destPage = "WEB-INF/views/DishList.jsp";
-                
-                RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
-                dispatcher.forward(request, response);
+                request.setAttribute("message", message);                
+                response.sendRedirect("./list"); 
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
