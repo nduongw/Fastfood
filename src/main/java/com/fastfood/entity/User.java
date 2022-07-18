@@ -12,7 +12,7 @@ public class User {
 	private String address;
 	private Date birthday_date;
 	private String phone;
-	private boolean membership;
+	private int membership;
 	private boolean admin;
 	
 	public User () {
@@ -20,7 +20,7 @@ public class User {
 	}
 	
 	public User(int user_id, String account, String password, String email, int point, String name, String address,
-			Date birthday_date, String phone, boolean membership, boolean admin) {
+			Date birthday_date, String phone, int membership, boolean admin) {
 		super();
 		this.user_id = user_id;
 		this.account = account;
@@ -33,6 +33,11 @@ public class User {
 		this.phone = phone;
 		this.membership = membership;
 		this.admin = admin;
+	}
+	
+	public User(int user_id) {
+		super();
+		this.user_id = user_id;
 	}
 
 	public int getUser_id() {
@@ -83,11 +88,12 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public boolean isMembership() {
+	
+	public int isMembership() {
 		return membership;
 	}
-	public void setMembership(boolean membership) {
-		this.membership = membership;
+	public void setMembership(int i) {
+		this.membership = i;
 	}
 	
 	public boolean isAdmin() {

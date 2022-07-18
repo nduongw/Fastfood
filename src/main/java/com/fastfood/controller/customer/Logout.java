@@ -1,4 +1,4 @@
-package com.fastfood.controller;
+package com.fastfood.controller.customer;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -22,10 +22,9 @@ public class Logout extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		
 		if (session != null) {
-			session.removeAttribute("user");
+			session.removeAttribute("userAcc");
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/index.jsp");
-            dispatcher.forward(request, response);
+			response.sendRedirect("displayDish");
 		}
 		
 		

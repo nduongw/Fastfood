@@ -1,4 +1,4 @@
-package com.fastfood.controller;
+package com.fastfood.controller.customer;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -39,8 +39,7 @@ public class Login extends HttpServlet {
 		String userName = request.getParameter("email");
 		String passwordString = request.getParameter("password");
 		
-		System.out.println("Login" + userName);
-		System.out.println("Login" +passwordString);
+		
 		
 		DBUtils utils = new DBUtils();
 		
@@ -54,18 +53,15 @@ public class Login extends HttpServlet {
 			if (cUser == null) {
 				String message = "Cant found user email";
                 request.setAttribute("message", message);
+                request.getRequestDispatcher(destPage).forward(request, response);
 			} else {
-				String message = "Hello dungbui";
-                request.setAttribute("message", message);
-                
-                HttpSession session = request.getSession();
-                session.setAttribute("user", cUser);
-                
-                	destPage = "WEB-INF/views/user_index.jsp";
+                request.getSession().setAttribute("userAcc", cUser);
+                System.out.println("Login: " + userName);
+        		System.out.println("Login: " +passwordString);
+        		System.out.println(cUser.getName());
+        		request.getRequestDispatcher("/displayDish").forward(request, response);
 			}
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
-            dispatcher.forward(request, response);
             
 		} catch (SQLException e) {
 			e.printStackTrace();

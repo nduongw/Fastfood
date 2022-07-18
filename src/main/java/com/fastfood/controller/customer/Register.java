@@ -1,4 +1,4 @@
-package com.fastfood.controller;
+package com.fastfood.controller.customer;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
