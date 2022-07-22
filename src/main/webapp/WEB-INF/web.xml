@@ -179,4 +179,24 @@
     <servlet-name>CheckOut</servlet-name>
     <url-pattern>/CheckOut</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CheckOutProduct</display-name>
+    <servlet-name>CheckOutProduct</servlet-name>
+    <servlet-class>com.fastfood.controller.checkout.CheckOutProduct</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheckOutProduct</servlet-name>
+    <url-pattern>/CheckOutProduct</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DishList</display-name>
+    <servlet-name>DishList</servlet-name>
+    <servlet-class>com.fastfood.controller.admin.DishList</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DishList</servlet-name>
+    <url-pattern>/DishList</url-pattern>
+  </servlet-mapping>
 </web-app>

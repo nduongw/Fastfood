@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -27,6 +29,7 @@ public class Detail extends HttpServlet {
 		int pid = Integer.parseInt(request.getParameter("pid"));
 		Dish dish = new Dish();
 		Connection dbcon = ConnectDatabase.getJDBCConnection();
+		HttpSession session = request.getSession();
 		
 		try {
 			dish = DBUtils.queryDish(dbcon, pid);
@@ -35,6 +38,7 @@ public class Detail extends HttpServlet {
 		}
 		
 		request.setAttribute("detailDish", dish);
+		session.setAttribute("detail", dish);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/Detail.jsp");
         dispatcher.forward(request, response);
 		

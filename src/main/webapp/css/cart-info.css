@@ -1,0 +1,192 @@
+.item {
+  max-width: 60rem;
+  max-height: 40rem;
+}
+
+img {
+  border-radius: 9px;
+}
+
+.component-arrangement {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  grid-gap: 5rem;
+}
+.img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.display-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.meal-attribute-info {
+  font-weight: 500;
+}
+
+.meal-info-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-top: 1px dashed #c4c4c4;
+}
+
+.meal-info {
+  font-size: 2rem;
+  line-height: 2.3rem;
+}
+.meal-name {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.meal-price {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.btn:link,
+.btn:visited {
+  margin-top: 1rem;
+  width: 20rem;
+  background-color: #e67e22;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: inline-block;
+  text-align: center;
+  border-radius: 15px;
+  font-size: 1.7rem;
+  padding: 15px 12px;
+}
+.btn {
+  background-color: #cf711f;
+  color: #fff;
+}
+.btn:hover,
+.btn:active {
+  background-color: #cf711f;
+  color: #fff;
+}
+
+ol,
+ul {
+  padding: 0;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+
+.container .post {
+  display: none;
+}
+.container .text {
+  font-size: 25px;
+  color: #666;
+  font-weight: 500;
+}
+.container .edit {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  font-size: 16px;
+  color: #666;
+  font-weight: 500;
+  cursor: pointer;
+}
+.container .edit:hover {
+  text-decoration: underline;
+}
+.container .star-widget input {
+  display: none;
+}
+.star-widget label {
+  font-size: 40px;
+  color: #444;
+  padding: 10px;
+  float: right;
+  transition: all 0.2s ease;
+}
+input:not(:checked) ~ label:hover,
+input:not(:checked) ~ label:hover ~ label {
+  color: #fd4;
+}
+input:checked ~ label {
+  color: #fd4;
+}
+input#rate-1:checked ~ label {
+  color: #fe7;
+}
+#rate-1:checked ~ .rating-description:before {
+  content: "I just hate it ";
+}
+#rate-2:checked ~ .rating-description:before {
+  content: "I don't like it ";
+}
+#rate-3:checked ~ .rating-description:before {
+  content: "It is awesome ";
+}
+#rate-4:checked ~ .rating-description:before {
+  content: "I just like it ";
+}
+#rate-5:checked ~ .rating-description:before {
+  content: "I just love it ";
+}
+.container form {
+  display: none;
+}
+
+input:checked ~ form {
+  display: block;
+}
+
+.rating-description {
+  font-size: 25px;
+  color: #fe7;
+  font-weight: 500;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+}
+form .textarea {
+  height: 100px;
+  width: 100%;
+  overflow: hidden;
+}
+form .textarea textarea {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  color: #000;
+  border: 1px solid #333;
+  padding: 10px;
+  font-size: 17px;
+  resize: none;
+}
+.textarea textarea:focus {
+  border-color: #444;
+}
+
+.submit--btn {
+  background-color: #cf711f;
+  color: #fff;
+  margin-top: 1rem;
+  width: 20rem;
+  background-color: #e67e22;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: inline-block;
+  text-align: center;
+  border-radius: 15px;
+  font-size: 1.7rem;
+  padding: 15px 12px;
+  border: none;
+}

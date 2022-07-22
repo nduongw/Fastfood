@@ -82,18 +82,14 @@
                                                 <dl class="param param-inline">
                                                     <dt>Quantity: </dt>
                                                     <dd>
-                                                        <select class="form-control form-control-sm" style="width:70px;">
-                                                            <option> 1 </option>
-                                                            <option> 2 </option>
-                                                            <option> 3 </option>
-                                                        </select>
+                           
                                                     </dd>
                                                 </dl>  <!-- item-property .// -->
                                             </div> <!-- col.// -->
 
                                         </div>
                                         <hr>
-                                        <a href="#" class="btn btn-lg btn-primary text-uppercase"> Buy now </a>
+                                        <a href="checkoutProduct?id=${detailDish.dish_id}" class="btn btn-lg btn-primary text-uppercase"> Buy now </a>
                                         <a href="add-to-favourite?id=${detailDish.dish_id}" class="btn btn-lg btn-primary text-uppercase"> Add to favorite </a>
                                         <a href="add-to-cart?id=${detailDish.dish_id}" class="btn btn-lg btn-outline-primary text-uppercase"> <i class="fas fa-shopping-cart"></i> Add to cart </a>
                                     </article> <!-- card-body.// -->

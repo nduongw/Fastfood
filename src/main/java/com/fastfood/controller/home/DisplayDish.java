@@ -44,7 +44,7 @@ public class DisplayDish extends HttpServlet {
 		
 		
 		try {
-			dishList = DBUtils.queryDish(conn);
+			dishList = DBUtils.queryDishHigh2Low(conn);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -1,6 +1,7 @@
 package com.fastfood.controller.home;
 
 import jakarta.servlet.RequestDispatcher;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,6 +16,7 @@ import com.fastfood.entity.Category;
 import com.fastfood.entity.Dish;
 import com.fastfood.model.ConnectDatabase;
 import com.fastfood.utils.DBUtils;
+
 
 public class CategoryControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;

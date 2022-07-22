@@ -2,7 +2,7 @@ package com.fastfood.entity;
 
 import java.sql.Date;
 import java.util.List;
-//TODO: thiet ke lai cac class 
+
 public class Receipt {
 	private int id;
 	private int user_id;
@@ -10,7 +10,7 @@ public class Receipt {
 	private Date time;
 	private int payment;
 	private int total;
-	private List<Dish> dishList;
+	private List<Cart> cartList;
 	
 	public int getId() {
 		return id;
@@ -60,12 +60,12 @@ public class Receipt {
 		this.total = total;
 	}
 	
-	public List<Dish> getDishList() {
-		return dishList;
+	public List<Cart> getCartList() {
+		return this.cartList;
 	}
 	
-	public void setDishList(List<Dish> dishList) {
-		this.dishList = dishList;
+	public void setCartList(List<Cart> cartList) {
+		this.cartList = cartList;
 	}
 	
 	public Receipt() {

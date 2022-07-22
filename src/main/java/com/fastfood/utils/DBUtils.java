@@ -11,14 +11,16 @@ import org.eclipse.jdt.internal.compiler.ast.ThisReference;
 
 import com.fastfood.entity.Cart;
 import com.fastfood.entity.Category;
+import com.fastfood.entity.Customer;
 import com.fastfood.entity.Dish;
 import com.fastfood.entity.Favourite;
+import com.fastfood.entity.Receipt;
 import com.fastfood.entity.User;
 import com.fastfood.model.ConnectDatabase;
 import com.mysql.cj.jdbc.ConnectionImpl;
 
 public class DBUtils {
-	public static User findUser(Connection connection, String userName, String password) throws SQLException {
+	public static Customer findUser(Connection connection, String userName, String password) throws SQLException {
 		String sql = "SELECT * FROM `users`"
 				+ "WHERE account = ? AND password = ?";
 		
@@ -29,16 +31,16 @@ public class DBUtils {
 		ResultSet rs = pstm.executeQuery();
 		
 		if (rs.next()) {
-			User accUser = new User();
+			Customer accUser = new Customer();
 			accUser.setAccount(userName);
 			accUser.setPassword(password);
 			accUser.setName(rs.getString("name"));
 			accUser.setAddress(rs.getString("address"));
 			accUser.setEmail(rs.getString("email"));
-			accUser.setPoint(rs.getInt("point"));
 			accUser.setPhone(rs.getString("phone"));
-			accUser.setMembership(rs.getInt("membership"));
 			accUser.setUser_id(rs.getInt("user_id"));
+			accUser.setPoint(0);
+			accUser.setMembership(0);
 			return accUser;
 		}
 		
@@ -71,6 +73,56 @@ public class DBUtils {
 	
 	public static List<Dish> queryDish(Connection connection) throws SQLException {
 		String sql = "SELECT * FROM dishes";
+		
+		PreparedStatement pstm = connection.prepareStatement(sql);
+		
+		ResultSet rs = pstm.executeQuery();
+		
+		List<Dish> dishList = new ArrayList<Dish>();
+		
+		while (rs.next()) {
+			int dish_id = rs.getInt("dish_id");
+			String name = rs.getString("name");
+			int category_id = rs.getInt("category_id");
+			String description = rs.getString("description");
+			int price = rs.getInt("price");
+			String image = rs.getString("image");
+			
+			Dish nDish = new Dish(dish_id, name, category_id, description, price, image);
+			dishList.add(nDish);
+		}
+		
+		return dishList;
+	}
+	
+	public static List<Dish> queryDishLow2High(Connection connection) throws SQLException {
+		String sql = "SELECT * FROM dishes "
+					+ "ORDER BY price";
+		
+		PreparedStatement pstm = connection.prepareStatement(sql);
+		
+		ResultSet rs = pstm.executeQuery();
+		
+		List<Dish> dishList = new ArrayList<Dish>();
+		
+		while (rs.next()) {
+			int dish_id = rs.getInt("dish_id");
+			String name = rs.getString("name");
+			int category_id = rs.getInt("category_id");
+			String description = rs.getString("description");
+			int price = rs.getInt("price");
+			String image = rs.getString("image");
+			
+			Dish nDish = new Dish(dish_id, name, category_id, description, price, image);
+			dishList.add(nDish);
+		}
+		
+		return dishList;
+	}
+	
+	public static List<Dish> queryDishHigh2Low(Connection connection) throws SQLException {
+		String sql = "SELECT * FROM dishes "
+				+ "ORDER BY price DESC";
 		
 		PreparedStatement pstm = connection.prepareStatement(sql);
 		
@@ -259,6 +311,38 @@ public class DBUtils {
 		
 		pstm.executeUpdate();
 	}
+	
+	public static void addReceipt(Connection connection, Receipt receipt, int user_id) throws SQLException {
+		String query1 = "INSERT INTO `receipts`(receipt_id, user_id, status, time, payment, total_payment) "
+				+ "VALUES(?, ?, 0, ?, 1, ?)";
+		
+		String query2 = "INSERT INTO `receipts_dishes`(receipt_id, dish_id) "
+				+ "VALUES(?, ?)";
+		
+		PreparedStatement pstm = connection.prepareStatement(query1);
+		
+		int MAX = 9999999;
+		int MIN = 1;
+		int randomId = (int)Math.floor(Math.random()*(MAX-MIN+1)+MIN);
+		
+		pstm.setInt(1, randomId);
+		pstm.setInt(2, user_id);
+		pstm.setTimestamp(3, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+		pstm.setInt(4, receipt.getTotal());
+		
+		pstm.executeUpdate();
+		
+		pstm = connection.prepareStatement(query2);
+		pstm.setInt(1, randomId);
+		
+		for (Cart cart: receipt.getCartList()) {
+			System.out.println(cart.getDish_id());
+			pstm.setInt(2, cart.getDish_id());
+			pstm.executeUpdate();
+		}
+	}
+	
+
 	
 	public static void main(String args[]) throws SQLException {
 		DBUtils dbUtils = new DBUtils();

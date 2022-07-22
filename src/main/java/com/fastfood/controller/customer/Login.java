@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import org.apache.catalina.realm.UserDatabaseRealm;
 import org.apache.jasper.tagplugins.jstl.core.If;
 
+import com.fastfood.entity.Customer;
 import com.fastfood.entity.User;
 import com.fastfood.model.ConnectDatabase;
 import com.fastfood.utils.DBUtils;
@@ -28,6 +29,8 @@ public class Login extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String image = "WEB-INF/views/img/meals/meal-8.jpg";
+		request.setAttribute("image", image);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/login.jsp");
 		
 		dispatcher.forward(request, response);
@@ -37,9 +40,7 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String userName = request.getParameter("email");
-		String passwordString = request.getParameter("password");
-		
-		
+		String passwordString = request.getParameter("password");		
 		
 		DBUtils utils = new DBUtils();
 		
@@ -47,12 +48,13 @@ public class Login extends HttpServlet {
 		Connection dbcon = con.getJDBCConnection();
 		
 		try {
-			User cUser = DBUtils.findUser(dbcon, userName, passwordString);
+			Customer cUser = DBUtils.findUser(dbcon, userName, passwordString);
 			String destPage = "WEB-INF/views/login.jsp";
 			
 			if (cUser == null) {
 				String message = "Cant found user email";
                 request.setAttribute("message", message);
+//                request.setAttribute("image", image);               
                 request.getRequestDispatcher(destPage).forward(request, response);
 			} else {
                 request.getSession().setAttribute("userAcc", cUser);

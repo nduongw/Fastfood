@@ -1,5 +1,6 @@
 package com.fastfood.controller.checkout;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -32,10 +33,13 @@ public class CheckOut extends HttpServlet {
 		HttpSession session = request.getSession();
 		User cUser = (User)session.getAttribute("userAcc");
 		
+		
 		if (cUser == null) {
 			String direction = "WEB-INF/views/login.jsp";
 			request.getRequestDispatcher(direction).forward(request, response);
 		} else {
+			System.out.println(cUser.getUser_id());
+			
 			@SuppressWarnings("unchecked")
 			ArrayList<Cart> cart_List = (ArrayList<Cart>)session.getAttribute("cartInfo");
 			List<Cart> products = null;
@@ -50,6 +54,9 @@ public class CheckOut extends HttpServlet {
 			
 			for (Cart cart: products) {
 				totalPrice += cart.getPrice();
+				System.out.println(cart.getName());
+				System.out.println(cart.getQuantity());
+				System.out.println("-----------------------");
 			}
 			
 			Receipt receipt = new Receipt();
@@ -58,6 +65,22 @@ public class CheckOut extends HttpServlet {
 			receipt.setPayment(1);
 			receipt.setTotal(totalPrice);
 			receipt.setStatus(1);
+			receipt.setCartList(products);
+			
+			System.out.println(totalPrice);
+			
+			try {
+				DBUtils.addReceipt(conn, receipt, cUser.getUser_id());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/Home.jsp");
+//	        dispatcher.forward(request, response);
+			
+			session.removeAttribute("cartInfo");
+			response.sendRedirect("displayDish");
 		}
 		
 		
