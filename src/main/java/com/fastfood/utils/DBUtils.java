@@ -41,6 +41,8 @@ public class DBUtils {
 			accUser.setUser_id(rs.getInt("user_id"));
 			accUser.setPoint(0);
 			accUser.setMembership(0);
+			accUser.setIs_admin(rs.getInt("is_admin"));
+
 			return accUser;
 		}
 		
@@ -405,6 +407,100 @@ public class DBUtils {
 		pstm.setInt(6, userId);
 		
 		pstm.executeUpdate();
+	}
+	
+	public static int addDish(Connection connection, String name, String category, String description, int price) throws SQLException {
+		String sql = "SELECT * FROM categories WHERE category_name = '" + category + "'";
+
+		PreparedStatement pstm = connection.prepareStatement(sql);
+
+		ResultSet rs = pstm.executeQuery();
+		if (rs.next()) {
+			int category_id = rs.getInt("category_id");
+			sql = "INSERT INTO dishes (name, category_id, description, price) VALUES ('"
+					+ name + "', " + category_id + ", '" + description + "', " + price + ");";
+			connection.prepareStatement(sql).executeUpdate();
+			System.out.println("Added successfully");
+			return 1;
+		}
+
+		return 0;
+	}
+	
+	public static List<Dish> queryallDish(Connection connection) throws SQLException {
+		String sql = "SELECT * FROM dishes";
+		PreparedStatement pstm = connection.prepareStatement(sql);
+		List<Dish> dishList = new ArrayList<Dish>();
+		
+		ResultSet rs = pstm.executeQuery();
+		
+		while (rs.next()) {
+			int dish_id = rs.getInt("dish_id");
+			String name = rs.getString("name");
+			int category_id = rs.getInt("category_id");
+			String description = rs.getString("description");
+			int price = rs.getInt("price");
+			
+			Dish nDish = new Dish(dish_id, name, category_id, description, price);
+			dishList.add(nDish);
+		}
+
+		return dishList;
+	}
+	
+	public static List<Category> queryallCategory(Connection connection) throws SQLException {
+		String sql = "SELECT * FROM categories";
+
+		PreparedStatement pstm = connection.prepareStatement(sql);
+
+		ResultSet rs = pstm.executeQuery();
+
+		List<Category> cateList = new ArrayList<Category>();
+
+		while (rs.next()) {
+			int id = rs.getInt("category_id");
+			String name = rs.getString("category_name");
+
+			Category cate = new Category(id, name);
+			cateList.add(cate);
+		}
+
+		return cateList;
+	}
+	
+	public static int editDish(Connection connection, int id, String name, int category_id, String description, int price) throws SQLException {
+		String sql = "UPDATE dishes "
+				+ "SET name = '" + name + "', category_id = " + category_id + 
+				", description = '" + description + "', price = " + price + 
+				" WHERE dish_id = " + id + ";";
+
+		try {
+			connection.prepareStatement(sql).executeUpdate();
+			return 1;
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public static int deleteDish(Connection connection, int dish_id) throws SQLException {
+		String sql = "DELETE FROM dishes WHERE dish_id = ?";
+		String sql2 = "DELETE FROM favorites WHERE dish_id = ?";
+		String sql3 = "DELETE FROM receipts_dishes WHERE dish_id = ?";
+		
+		PreparedStatement pstm = connection.prepareStatement(sql2);
+		pstm.setInt(1, dish_id);
+		pstm.executeUpdate();
+		
+		pstm = connection.prepareStatement(sql3);
+		pstm.setInt(1, dish_id);
+		pstm.executeUpdate();
+		
+		pstm = connection.prepareStatement(sql);
+		pstm.setInt(1, dish_id);
+		pstm.executeUpdate();
+		
+		return 1;
 	}
 	
 	public static void main(String args[]) throws SQLException {

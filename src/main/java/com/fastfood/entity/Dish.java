@@ -19,6 +19,15 @@ public class Dish {
 		this.image = image;
 	}
 	
+	public Dish(int dish_id, String name, int category_id, String description, int price) {
+		super();
+		this.dish_id = dish_id;
+		this.name = name;
+		this.category_id = category_id;
+		this.description = description;
+		this.price = price;
+	}
+	
 	public Dish() {
 		
 	}

@@ -11,6 +11,7 @@ public class User {
 	private String address;
 	private Date birthday_date;
 	private String phone;
+	private int is_admin;
 	
 	public User () {
 	}
@@ -96,6 +97,13 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
+
+	public int getIs_admin() {
+		return is_admin;
+	}
+
+	public void setIs_admin(int is_admin) {
+		this.is_admin = is_admin;
+	}
 	
 }

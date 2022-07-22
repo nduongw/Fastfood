@@ -155,8 +155,19 @@ border:none; margin-top: 5px"></input>
 					              </li>
 					              
 					              <div class="meal-price">
+					              	<c:if test="${sessionScope.userAcc.is_admin == 0}">
 					                <a href="add-to-favourite?id=${o.dish_id}"><ion-icon id="heart" class="meal-icon" name="heart"></ion-icon></a>
 					                <a href="add-to-cart?id=${o.dish_id}" class="btn btn--small">Add to cart</a>
+					                </c:if>
+					                <div style="display: flex; gap: 40px;">
+						                <c:if test="${sessionScope.userAcc.is_admin > 1}">
+						                <a href="edit?id=${o.dish_id}" class="btn btn--small" style="width:100px;">Edit</a>
+						                </c:if>
+						 
+						                <c:if test="${sessionScope.userAcc.is_admin > 2}">
+						                <a href="delete?id=${o.dish_id}" class="btn btn--small" style="width:100px; background-color: #f03e3e">Remove</a>
+						                </c:if>
+					                </div>
 					              </div>
 					            </ul>
 					          </div>

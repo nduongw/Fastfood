@@ -259,4 +259,34 @@
     <servlet-name>ChangeCustomerInfo</servlet-name>
     <url-pattern>/ChangeCustomerInfo</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>addDish</display-name>
+    <servlet-name>addDish</servlet-name>
+    <servlet-class>com.fastfood.controller.admin.addDish</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addDish</servlet-name>
+    <url-pattern>/addDish</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>deleteDish</display-name>
+    <servlet-name>deleteDish</servlet-name>
+    <servlet-class>com.fastfood.controller.admin.deleteDish</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deleteDish</servlet-name>
+    <url-pattern>/deleteDish</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>editDish</display-name>
+    <servlet-name>editDish</servlet-name>
+    <servlet-class>com.fastfood.controller.admin.editDish</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>editDish</servlet-name>
+    <url-pattern>/editDish</url-pattern>
+  </servlet-mapping>
 </web-app>
