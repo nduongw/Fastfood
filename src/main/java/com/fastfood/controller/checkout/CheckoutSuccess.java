@@ -1,4 +1,4 @@
-package com.fastfood.controller.customer;
+package com.fastfood.controller.checkout;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -6,31 +6,26 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/logout"})
-public class Logout extends HttpServlet {
+@WebServlet(urlPatterns = {"/Success"})
+public class CheckoutSuccess extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public Logout() {
+    public CheckoutSuccess() {
         super();
-     }
+
+    }
+
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/CheckOutSuccess.jsp");
 		
-		if (session != null) {
-			session.removeAttribute("userAcc");
-			
-			response.sendRedirect("logoutSuccess");
-		}
-		
-		
+		dispatcher.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

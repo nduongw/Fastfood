@@ -6,10 +6,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Show Cart</title>
+<script
+      type="module"
+      src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule=""
+      src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script
+      defer
+      src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"
+    ></script>
 </head>
 <body>
-	<div class="container my-3">
-		<div><h3>Total Price: ${totalPrice} </h3> <a class="button" href="checkout">Check Out</a></div>
+	<main>
+		
+		<div style="display: flex; justify-content: center">
 		<table class="table table-light">
 			<thead>
 				<tr>
@@ -26,13 +40,13 @@
 						<td><img src="${o.image}" width="100" height="100"></td>
 						<td>${o.name}</td>
 						<td>${o.price}</td>
-						<td>
+						<td >
 							<form action="order-now" method="post" class="form-inline">
 							<input type="hidden" name="id" value="${o.getDish_id()}" class="form-input">
-								<div class="form-group d-flex justify-content-between">
-									<a class="btn bnt-sm btn-incre" href="quantity-inc-dec?action=inc&id=${o.getDish_id()}"><i class="fas fa-plus-square">+</i></a> 
-									<input style="padding: 10px;" type="text" name="quantity" class="form-control"  value="${o.quantity}" readonly> 
-									<a class="btn btn-sm btn-decre" href="quantity-inc-dec?action=dec&id=${o.getDish_id()}"><i class="fas fa-minus-square">-</i></a>
+								<div style="display: flex; align-items: center; gap: 5px;" >
+									<a class="btn bnt-sm btn-incre" href="quantity-inc-dec?action=inc&id=${o.getDish_id()}"><ion-icon name="add"></ion-icon></a> 
+									<input style="padding: 5px; width: 50px;" type="text" name="quantity" class="form-control"  value="${o.quantity}" readonly> 
+									<a class="btn btn-sm btn-decre" href="quantity-inc-dec?action=dec&id=${o.getDish_id()}"><ion-icon name="remove"></ion-icon></a>
 								</div>
 							</form>
 						</td>
@@ -41,8 +55,16 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		
 	</div>
+	<div style="display: flex; justify-content: center; margin-top: 50px; color: #fff; padding-right: 700px; font-size: 30px;"><h3>Total Price: ${totalPrice} VND</h3> </div>
+	<div style="display: flex; justify-content: center">
+         <a class="button" href="checkout">Check Out</a></div>
+     <div style="display: flex; justify-content: center; margin-top: 20px">
+         <a href="#" style="color: #fff; font-size: 1.5rem">Back</a></div>
+         
 	
+	</main>
 </body>
 <style>
     /*
@@ -59,6 +81,12 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+    }
+    
+   body {
+    	background-image: linear-gradient(rgba(233, 236, 239, 0.603), rgba(233, 236, 239, 0.603));
+                 background-image: linear-gradient(rgba(34, 34, 34, 0.603), rgba(34, 34, 34, 0.603)),  url("https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80");
+    	background-size: cover;
     }
 
     table {
@@ -107,6 +135,7 @@
       border-radius: 5px;
       border: none;
       text-transform: uppercase;
+      text-align: center;
       }
      </style>
 </html>

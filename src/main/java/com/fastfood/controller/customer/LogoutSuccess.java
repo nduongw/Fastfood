@@ -6,31 +6,28 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/logout"})
-public class Logout extends HttpServlet {
+@WebServlet(urlPatterns = {"/logoutSuccess"})
+public class LogoutSuccess extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
 
-    public Logout() {
+    public LogoutSuccess() {
         super();
-     }
+            }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/LogoutSuccess.jsp");
 		
-		if (session != null) {
-			session.removeAttribute("userAcc");
-			
-			response.sendRedirect("logoutSuccess");
-		}
-		
-		
+		dispatcher.forward(request, response);
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

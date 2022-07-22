@@ -199,4 +199,44 @@
     <servlet-name>DishList</servlet-name>
     <url-pattern>/DishList</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CheckoutSuccess</display-name>
+    <servlet-name>CheckoutSuccess</servlet-name>
+    <servlet-class>com.fastfood.controller.checkout.CheckoutSuccess</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheckoutSuccess</servlet-name>
+    <url-pattern>/CheckoutSuccess</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LogoutSuccess</display-name>
+    <servlet-name>LogoutSuccess</servlet-name>
+    <servlet-class>com.fastfood.controller.customer.LogoutSuccess</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutSuccess</servlet-name>
+    <url-pattern>/LogoutSuccess</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ChangePassword</display-name>
+    <servlet-name>ChangePassword</servlet-name>
+    <servlet-class>com.fastfood.controller.customer.ChangePassword</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChangePassword</servlet-name>
+    <url-pattern>/ChangePassword</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ShowInfo</display-name>
+    <servlet-name>ShowInfo</servlet-name>
+    <servlet-class>com.fastfood.controller.customer.ShowInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowInfo</servlet-name>
+    <url-pattern>/ShowInfo</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -7,7 +7,7 @@
      </a>
 	<nav class="main-nav">
 	    <ul class="main-nav-list">   
-	                <li><a class="main-nav-link" href="#how">Manage account</a></li>
+	                <li><a class="main-nav-link" href="show-info">Show Info</a></li>
 	                
 	                
 	                <c:if test="${sessionScope.userAcc != null}">
