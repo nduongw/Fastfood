@@ -50,7 +50,7 @@
 								</div>
 							</form>
 						</td>
-						<td><a href="remove-from-cart?id=${o.getDish_id()}" class="btn btn-sm btn-danger">Remove</a></td>
+						<td><a href="remove-from-cart?id=${o.getDish_id()}" class="btn btn-sm btn-danger"><ion-icon name="trash-bin" class=”meal-icon” style=”width: 40px; height: 40px; color: #f03e3e;”></ion-icon></a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -85,7 +85,7 @@
     
    body {
     	background-image: linear-gradient(rgba(233, 236, 239, 0.603), rgba(233, 236, 239, 0.603));
-                 background-image: linear-gradient(rgba(34, 34, 34, 0.603), rgba(34, 34, 34, 0.603)),  url("https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80");
+                 background-image: linear-gradient(rgba(34, 34, 34, 0.603), rgba(34, 34, 34, 0.603)),  url("https://images.unsplash.com/photo-1561758033-d89a9ad46330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFzdCUyMGZvb2R8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60");
     	background-size: cover;
     }
 
@@ -107,7 +107,7 @@
     }
 
     thead tr {
-      background-color: #868e96;
+      background-color: #343a40;
       color: #fff;
     }
 
