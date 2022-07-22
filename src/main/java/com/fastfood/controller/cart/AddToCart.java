@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import com.fastfood.entity.Cart;
+import com.fastfood.entity.Customer;
 
 @WebServlet(urlPatterns = {"/add-to-cart"})
 public class AddToCart extends HttpServlet {
@@ -33,29 +34,9 @@ public class AddToCart extends HttpServlet {
 		@SuppressWarnings("unchecked")
 		ArrayList<Cart> cart_List = (ArrayList<Cart>)session.getAttribute("cartInfo");
 		
-		if (cart_List == null) {
-			cartList.add(cart);
-			session.setAttribute("cartInfo", cartList);
-
-		} else {
-			cartList = cart_List;
-			Boolean exist = false;
-			
-			for (Cart c: cartList) {
-				if (c.getDish_id() == id) {
-					exist = true;
-					break;
-				} 
-			}
-			
-			if (!exist) {
-//				cart.setQuantity(cart.getQuantity() + 1);
-				cartList.add(cart);
-				session.setAttribute("cartInfo", cartList);
-			}
-			
-		}
-
+		Customer customer = new Customer();
+		
+		customer.addToCart(cartList, session, cart, id, cart_List);
 		response.sendRedirect("displayDish");
 		
 	}

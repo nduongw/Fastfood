@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.fastfood.entity.Cart;
+import com.fastfood.entity.Customer;
 
 @WebServlet(urlPatterns = {"/remove-from-cart"})
 public class RemoveFromCart extends HttpServlet {
@@ -28,14 +29,9 @@ public class RemoveFromCart extends HttpServlet {
 		
 		@SuppressWarnings("unchecked")
 		ArrayList<Cart> cart_List = (ArrayList<Cart>)session.getAttribute("cartInfo");
+		Customer customer = new Customer();
 		
-		for (Cart cart: cart_List) {
-			if (cart.getDish_id() == id) {
-				cart_List.remove(cart);
-				System.out.println("Removed cart " + cart.getDish_id() + "successful");
-				break;
-			}
-		}
+		customer.removeCart(cart_List, id);
 		
 		session.setAttribute("cartInfo", cart_List);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/Cart.jsp");

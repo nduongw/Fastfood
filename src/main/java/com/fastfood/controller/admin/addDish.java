@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.fastfood.entity.Admin;
 import com.fastfood.model.ConnectDatabase;
 import com.fastfood.utils.DBUtils;
 
@@ -45,21 +46,11 @@ public class addDish extends HttpServlet {
 		ConnectDatabase con = new ConnectDatabase();
 		Connection dbcon = con.getJDBCConnection();
 
-		try {
-			int result = DBUtils.addDish(dbcon, name, category, description, price);
-			if (result == 0) {
-				String message = "Cant add";
-                request.setAttribute("message", message);
-			} else {
-				String message = "Added successfully";
-                request.setAttribute("message", message);
+		Admin admin = new Admin();
+		
+		admin.addDish(dbcon, name, category, description, price);
 
-                response.sendRedirect("displayDish");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
+		response.sendRedirect("displayDish");
 	}
 
 }

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fastfood.entity.Cart;
+import com.fastfood.entity.Customer;
 import com.fastfood.entity.Receipt;
 import com.fastfood.entity.User;
 import com.fastfood.model.ConnectDatabase;
@@ -44,20 +45,9 @@ public class CheckOut extends HttpServlet {
 			ArrayList<Cart> cart_List = (ArrayList<Cart>)session.getAttribute("cartInfo");
 			List<Cart> products = null;
 			
-			try {
-				products = DBUtils.getAllCart(conn, cart_List);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			Customer customer = new Customer();
 			
-			int totalPrice = 0;
-			
-			for (Cart cart: products) {
-				totalPrice += cart.getPrice();
-				System.out.println(cart.getName());
-				System.out.println(cart.getQuantity());
-				System.out.println("-----------------------");
-			}
+			int totalPrice = customer.checkout(products, conn, cart_List);
 			
 			Receipt receipt = new Receipt();
 			

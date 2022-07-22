@@ -1,6 +1,18 @@
 package com.fastfood.entity;
 
+import java.io.IOException;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Date;
+
+import com.fastfood.utils.DBUtils;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 public class User {
 	private int user_id;
@@ -12,6 +24,7 @@ public class User {
 	private Date birthday_date;
 	private String phone;
 	private int is_admin;
+	
 	
 	public User () {
 	}
@@ -106,4 +119,46 @@ public class User {
 		this.is_admin = is_admin;
 	}
 	
+	
+	public int login(Connection dbcon, String userName, String passwordString, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			Customer cUser = DBUtils.findUser(dbcon, userName, passwordString);
+			
+			
+			if (cUser == null) {
+				return 0;
+//                request.setAttribute("image", image);               
+                
+			} else {
+                request.getSession().setAttribute("userAcc", cUser);
+                System.out.println("Login: " + userName);
+        		System.out.println("Login: " +passwordString);
+        		System.out.println(cUser.getName());
+        		
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 1;
+	}
+	
+	public int logout(HttpSession session) {
+		if (session != null) {
+			session.removeAttribute("userAcc");
+			return 1;
+			
+		}
+		
+		return 0;
+	}
+	
+	public void register(Connection dbcon, String username, String password, String email, String name, String phone) {
+		try {
+			int check = DBUtils.addUser(dbcon, username, password, email, name, phone);
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
 }

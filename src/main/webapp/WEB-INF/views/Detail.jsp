@@ -47,7 +47,7 @@
         <jsp:include page="Menu.jsp"></jsp:include>
             
          <div style="display: flex; justify-content: center; margin-top: 40px">
-         <a href="#" style="color: #555555; font-size: 2rem">Back</a></div>
+         <a href="displayDish" style="color: #555555; font-size: 2rem">Back</a></div>
         <div class="container component-arrangement" id="container">
         <div class="img-container">
           <div class="item">

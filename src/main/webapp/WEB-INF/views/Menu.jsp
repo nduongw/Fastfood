@@ -8,7 +8,9 @@
 	<nav class="main-nav">
 	    <ul class="main-nav-list">   
 	    			<c:if test="${sessionScope.userAcc != null}">
+	    			<c:if test="${sessionScope.userAcc.is_admin == 0}">
 	                <li><a class="main-nav-link" href="show-info">Show Info</a></li>
+	                </c:if>
 	                </c:if>
 	                
 	                <c:if test="${sessionScope.userAcc != null}">
@@ -20,7 +22,9 @@
 	                </c:if>
 	                
 	                 <c:if test="${sessionScope.userAcc != null}">
+	                 <c:if test="${sessionScope.userAcc.is_admin == 0}">
 	                 <li><a class="main-nav-link" href="show-favourite">Favorite</a></li>
+	                </c:if>
 	                </c:if>
 	                
 	                <c:if test="${sessionScope.userAcc != null}">
@@ -31,10 +35,13 @@
 	                <li><a class="main-nav-link" href="add">Add Product</a></li>
 	                </c:if>
 	              
-	                
+	                <c:if test="${sessionScope.userAcc != null}">
+	                 <c:if test="${sessionScope.userAcc.is_admin == 0}">
 	                 <li><a class="main-nav-link nav-cta" href="showCart">Your Cart <span class="badge badge-pill badge-danger" style="color: #fff; background: #495057;">${cartQuantity} </span></a>
 	                 
 	                 </li>
+	                 </c:if>
+	                </c:if>
 	    </ul>
 	</nav>
 </header>

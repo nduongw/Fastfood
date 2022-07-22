@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.fastfood.entity.User;
 import com.fastfood.model.ConnectDatabase;
 import com.fastfood.utils.DBUtils;
 
@@ -36,12 +37,9 @@ public class Register extends HttpServlet {
 		
 		Connection dbcon = ConnectDatabase.getJDBCConnection();
 
-		try {
-			int check = DBUtils.addUser(dbcon, username, password, email, name, phone);
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		}
+		User user = new User();
+		
+		user.register(dbcon, username, password, email, name, phone);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/login.jsp");
         dispatcher.forward(request, response);

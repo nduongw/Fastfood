@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.fastfood.entity.Admin;
 import com.fastfood.model.ConnectDatabase;
 import com.fastfood.utils.DBUtils;
 
@@ -27,17 +28,9 @@ public class deleteDish extends HttpServlet {
 		ConnectDatabase con = new ConnectDatabase();
 		Connection dbcon = con.getJDBCConnection();
 
-		try {
-			int result = DBUtils.deleteDish(dbcon, id);
-			if (result == 0) {
-				System.out.println("Cant delete");
-			} else {
-				System.out.println("Delete successfully");
-				
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		Admin admin = new Admin();
+		
+		admin.deleteDish(dbcon, id);
 		
 		response.sendRedirect("displayDish");
 	}

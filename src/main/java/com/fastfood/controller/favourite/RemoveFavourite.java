@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.fastfood.entity.Cart;
+import com.fastfood.entity.Customer;
 import com.fastfood.entity.Favourite;
 import com.fastfood.entity.User;
 import com.fastfood.model.ConnectDatabase;
@@ -31,13 +32,9 @@ public class RemoveFavourite extends HttpServlet {
 		Connection dbcon = ConnectDatabase.getJDBCConnection();
 		HttpSession session = request.getSession();
 		User cUser = (User)session.getAttribute("userAcc");
+		Customer customer = new Customer();
 		
-		try {
-			DBUtils.removeFavourite(dbcon, cUser.getUser_id(), id);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		customer.removeProduct(dbcon, id, cUser);
 		
 		response.sendRedirect("show-favourite");
 	}

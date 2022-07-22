@@ -37,47 +37,47 @@
             class="category-img" id="meal-img"
             alt="Japanese Gyozas"
           />
-          <a href="#"><p style="font-size: 2rem; font-weight: 500;">Chicken</p></a>
+          <a href="cate?cid=1"><p style="font-size: 2rem; font-weight: 500;">Chicken</p></a>
         </div>
         <div class="category-item-flex">
 	          <img
-	              src="https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+	              src="https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80"
 	              class="category-img" id="meal-img"
 	              alt="Japanese Gyozas"
 	            />
-            <a href="#"><p style="font-size: 2rem; font-weight: 500">Rice + Spaghetti</p></a>
+            <a href="cate?cid=2"><p style="font-size: 2rem; font-weight: 500">Rice + Spaghetti</p></a>
           </div>
           <div class="category-item-flex">
             <img
-                src="https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                src="https://images.unsplash.com/photo-1551782450-17144efb9c50?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
                 class="category-img" id="meal-img"
                 alt="Japanese Gyozas"
               />
-              <a href="#"><p style="font-size: 2rem; font-weight: 500;">Burger</p></a>
+              <a href="cate?cid=3"><p style="font-size: 2rem; font-weight: 500;">Burger</p></a>
             </div>
             <div class="category-item-flex">
               <img
-                  src="https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                  src="https://images.unsplash.com/photo-1606168094336-48f205276929?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
                   class="category-img" id="meal-img"
                   alt="Japanese Gyozas"
                 />
-                <a href="#"><p style="font-size: 2rem; font-weight: 500;">Drink</p></a>
+                <a href="cate?cid=4"><p style="font-size: 2rem; font-weight: 500;">Drink</p></a>
               </div>
               <div class="category-item-flex">
                 <img
-                    src="https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                    src="https://images.unsplash.com/photo-1530648672449-81f6c723e2f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=789&q=80"
                     class="category-img" id="meal-img"
                     alt="Japanese Gyozas"
                   />
-                  <a href="#"><p style="font-size: 2rem; font-weight: 500;">Dessert</p></a>
+                  <a href="cate?cid=5"><p style="font-size: 2rem; font-weight: 500;">Dessert</p></a>
                 </div>
                 <div class="category-item-flex">
                   <img
-                      src="https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                      src="https://images.unsplash.com/photo-1499715217757-2aa48ed7e593?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
                       class="category-img" id="meal-img"
                       alt="Japanese Gyozas"
                     />
-                    <a href="#"><p style="font-size: 2rem; font-weight: 500;">Side Dish</p></a>
+                    <a href="cate?cid=6"><p style="font-size: 2rem; font-weight: 500;">Side Dish</p></a>
                   </div>
             </div>
             
@@ -115,9 +115,9 @@ border:none; margin-top: 5px"></input>
         
         <div class="f-sort">
           <span class="sort-by">Sort by:</span>
-          <select class="form-control1">
-            <option value="2" name="high">Price from low to high</option>
-            <a href="high-low"><option value="3">Price from high to low</option></a>
+          <select class="form-control1" name="sort_option">
+            <option value="2">Price from low to high</option>
+            <option value="3">Price from high to low</option>
           </select>
         </div>
       </div>

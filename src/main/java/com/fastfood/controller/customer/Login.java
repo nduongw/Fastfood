@@ -43,31 +43,19 @@ public class Login extends HttpServlet {
 		String passwordString = request.getParameter("password");		
 		
 		DBUtils utils = new DBUtils();
-		
+		String destPage = "WEB-INF/views/login.jsp";
 		ConnectDatabase con = new ConnectDatabase();
 		Connection dbcon = con.getJDBCConnection();
 		
-		try {
-			Customer cUser = DBUtils.findUser(dbcon, userName, passwordString);
-			String destPage = "WEB-INF/views/login.jsp";
-			
-			if (cUser == null) {
-				String message = "Cant found user email";
-                request.setAttribute("message", message);
-//                request.setAttribute("image", image);               
-                request.getRequestDispatcher(destPage).forward(request, response);
-			} else {
-                request.getSession().setAttribute("userAcc", cUser);
-                System.out.println("Login: " + userName);
-        		System.out.println("Login: " +passwordString);
-        		System.out.println(cUser.getName());
-        		request.getRequestDispatcher("/displayDish").forward(request, response);
-			}
-			
-            
-		} catch (SQLException e) {
-			e.printStackTrace();
+		User user = new User();
+		
+		int check = user.login(dbcon, userName, passwordString, request, response);
+		if (check == 0) {
+			request.getRequestDispatcher(destPage).forward(request, response);
+		} else {
+			request.getRequestDispatcher("/displayDish").forward(request, response);			
 		}
+		
 		
 	}
 

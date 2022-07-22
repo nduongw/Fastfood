@@ -32,6 +32,8 @@ public class DisplayDish extends HttpServlet {
 		Connection conn = ConnectDatabase.getJDBCConnection();
 		HttpSession session = request.getSession();
 		int cartSize = 0;
+		String sortOption = request.getParameter("sort_option");
+		System.out.println("sort option: " + sortOption);
 		
 //		String order = (String) request.getAttribute("high");
 //		System.out.println(order);

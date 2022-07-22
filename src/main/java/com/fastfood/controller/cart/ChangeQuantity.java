@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.fastfood.entity.Cart;
+import com.fastfood.entity.Customer;
 
 @WebServlet(urlPatterns = {"/quantity-inc-dec"})
 public class ChangeQuantity extends HttpServlet {
@@ -25,23 +26,13 @@ public class ChangeQuantity extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		
 		HttpSession session = request.getSession();
-		
 		@SuppressWarnings("unchecked")
 		ArrayList<Cart> cart_List = (ArrayList<Cart>)session.getAttribute("cartInfo");
+		Customer customer = new Customer();
 		
-		for (Cart cart: cart_List) {
-			if(cart.getDish_id() == id) {
-				if (action.equals("dec")) {
-					cart.setQuantity(cart.getQuantity() - 1);
-				} else if (action.equals("inc")) {
-					cart.setQuantity(cart.getQuantity() + 1);
-				} else {
-					System.out.println("Invalid action");
-				}
-			}
-		}
-		
+		customer.changeQuantity(session, id, action, cart_List);
 		session.setAttribute("cartInfo", cart_List);
+		
 		response.sendRedirect("showCart");
 		
 	}

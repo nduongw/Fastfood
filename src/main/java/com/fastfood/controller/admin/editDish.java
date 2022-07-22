@@ -14,6 +14,7 @@ import java.sql.SQLException;
 
 import com.fastfood.model.ConnectDatabase;
 import com.fastfood.utils.DBUtils;
+import com.fastfood.entity.Admin;
 import com.fastfood.entity.Dish;
 
 
@@ -31,21 +32,15 @@ public class editDish extends HttpServlet {
 
 		ConnectDatabase con = new ConnectDatabase();
 		Connection dbcon = con.getJDBCConnection();
+		Dish result = null;
+		Admin admin = new Admin();
+		admin.editDish(dbcon, id, result);
+		
+		request.setAttribute("info", result);
+        String destPage = "WEB-INF/views/editDish.jsp";
 
-		try {
-			Dish result = DBUtils.queryDish(dbcon, id);
-			if (result == null) {
-				System.out.println("Can't find the dish");
-			} else {
-                request.setAttribute("info", result);
-                String destPage = "WEB-INF/views/editDish.jsp";
-
-                RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
-                dispatcher.forward(request, response);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+        RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
+        dispatcher.forward(request, response);
 	}
 
 

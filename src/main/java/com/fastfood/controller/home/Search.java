@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.fastfood.entity.Category;
+import com.fastfood.entity.Customer;
 import com.fastfood.entity.Dish;
 import com.fastfood.model.ConnectDatabase;
 import com.fastfood.utils.DBUtils;
@@ -32,17 +33,9 @@ public class Search extends HttpServlet {
 		List<Dish> dishList = null;
 		List<Category> categories = null;
 		
-		try {
-			dishList = DBUtils.searchByName(conn, txtSearch);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			categories = DBUtils.getAllCategories(conn);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Customer customer = new Customer();
+		
+		customer.search(dishList, categories, conn, txtSearch);
 		
 		request.setAttribute("dishL", dishList);
 		request.setAttribute("category", categories);
