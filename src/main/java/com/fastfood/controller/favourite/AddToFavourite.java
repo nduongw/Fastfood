@@ -10,7 +10,9 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
+import com.fastfood.entity.Dish;
 import com.fastfood.entity.Favourite;
 import com.fastfood.entity.User;
 import com.fastfood.model.ConnectDatabase;
@@ -28,6 +30,8 @@ public class AddToFavourite extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		HttpSession session = request.getSession();
+		Connection dbcon = ConnectDatabase.getJDBCConnection();
+		List<Dish> myFavourites = null;
 		
 		User cUser = (User)session.getAttribute("userAcc");
 		
@@ -35,10 +39,13 @@ public class AddToFavourite extends HttpServlet {
 			String direction = "WEB-INF/views/login.jsp";
 			request.getRequestDispatcher(direction).forward(request, response);
 		} else {
-			Connection dbcon = ConnectDatabase.getJDBCConnection();
-			try {
-				// TODO code check neu them 2 cai cung id
-				DBUtils.addFavourite(dbcon, cUser.getUser_id(), id);
+			try {	
+				myFavourites = DBUtils.getFavourites(dbcon, cUser.getUser_id());
+				for (Dish f : myFavourites) {
+					if (f.getDish_id() != id) {
+						DBUtils.addFavourite(dbcon, cUser.getUser_id(), id);						
+					}
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

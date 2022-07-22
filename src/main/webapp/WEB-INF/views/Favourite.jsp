@@ -22,9 +22,9 @@
 				<c:forEach items="${favourites}" var="o">
 				
 					<tr>
-						<td>${o.getDishIdList()}</td>
-						<td>${o.getDishIdList()}</td>
-						<td><a href="remove-from-favourite?id=${o.getDishIdList()}" >Remove</a></td>
+						<td><img alt="" src="${o.getImage()}" style="width: 100px; height: auto;"></td>
+						<td>${o.getName()}</td>
+						<td><a href="remove-from-favourite?id=${o.getDish_id()}" >Remove</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -32,7 +32,7 @@
 	</div>
 	</div>
 	<div style="display: flex; justify-content: center; margin-top: 20px">
-         <a href="#" style="color: #fff; font-size: 1.5rem">Back</a></div>
+         <a href="displayDish" style="color: #fff; font-size: 1.5rem">Back</a></div>
          
 </body>
 
@@ -78,7 +78,7 @@
     }
 
     thead tr {
-      background-color: #868e96;
+      background-color: #343a40;
       color: #fff;
     }
 

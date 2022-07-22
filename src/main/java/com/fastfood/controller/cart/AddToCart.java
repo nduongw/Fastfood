@@ -49,7 +49,7 @@ public class AddToCart extends HttpServlet {
 			}
 			
 			if (!exist) {
-				cart.setQuantity(cart.getQuantity() + 1);
+//				cart.setQuantity(cart.getQuantity() + 1);
 				cartList.add(cart);
 				session.setAttribute("cartInfo", cartList);
 			}

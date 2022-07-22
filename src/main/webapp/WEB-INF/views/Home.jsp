@@ -88,8 +88,12 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 arrow-down" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
-          </div> </button>
-          <input class="search-bar" placeholder="Click here to search"></input>
+          </div> 
+          </button>
+          <form action="search" method="post" class="search-bar">
+          	<input name="txt" type="text"  placeholder="Click here to search" style="border-width:0px;
+border:none; margin-top: 5px"></input>
+          </form>
           <button class="search-button-container">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -110,12 +114,10 @@
         </div>
         
         <div class="f-sort">
-          <span class="sort-by">Sort by:</span
-          ><select class="form-control1">
-            <option value="1">New Product</option>
-            <option value="4">Product name</option>
-            <option value="2">Price from low to high</option>
-            <option value="3">Price from high to low</option>
+          <span class="sort-by">Sort by:</span>
+          <select class="form-control1">
+            <option value="2" name="high">Price from low to high</option>
+            <a href="high-low"><option value="3">Price from high to low</option></a>
           </select>
         </div>
       </div>
@@ -139,7 +141,7 @@
           						</a> 
 					          <div class="meal-content" id="meal-content">
 					            <div class="meal-tags">
-					              <span class="tag tag--spaghetti">${o.category_id}</span>
+					              <span class="tag tag--${o.category}">${o.category}</span>
 					            </div>
 					            <p class="meal-title" id = "meal-title" style=" height: 55px;">${o.name}</p>
 					            <ul class="meal-attributes">
@@ -161,12 +163,6 @@
                             </div>
                         </c:forEach>
                     </div>
-              
-
-           
-        
-
-        <jsp:include page="Footer.jsp"></jsp:include>
         </main>
     </body>
     <style>

@@ -7,6 +7,7 @@ public class Dish {
 	private String description;
 	private String image;
 	private int price;
+	private String category;
 	
 	public Dish(int dish_id, String name, int category_id, String description, int price, String image) {
 		super();
@@ -22,6 +23,14 @@ public class Dish {
 		
 	}
 	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	public int getDish_id() {
 		return dish_id;
 	}

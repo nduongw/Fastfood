@@ -36,7 +36,7 @@
             <div class="flex-column">
 			
             <a href="register" class="register"> Register now &rarr; </a>
-            <a href="#" class="back"> Back</a>
+            <a href="displayDish" class="back"> Back</a>
             </div>
           </form>
         </div>

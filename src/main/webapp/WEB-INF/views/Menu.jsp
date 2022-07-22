@@ -2,13 +2,14 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!--begin of menu-->
 <header class="header margin-bottom-md ">
-	<a href="#" class="main-nav-link" style="font-size: 3rem;">
+	<a href="displayDish" class="main-nav-link" style="font-size: 3rem;">
         Fastfood
      </a>
 	<nav class="main-nav">
 	    <ul class="main-nav-list">   
+	    			<c:if test="${sessionScope.userAcc != null}">
 	                <li><a class="main-nav-link" href="show-info">Show Info</a></li>
-	                
+	                </c:if>
 	                
 	                <c:if test="${sessionScope.userAcc != null}">
 	                	<li><a class="main-nav-link" href="logout">Logout</a></li>
@@ -27,7 +28,7 @@
 	                <li><a class="main-nav-link" href="change-password">Change Password</a></li>
 	                
 	                </c:if>
-	                 <li><a class="main-nav-link nav-cta" href="#cta">Your Cart <span class="badge badge-pill badge-danger" style="color: #fff; background: #495057;">${cartQuantity} </span></a>
+	                 <li><a class="main-nav-link nav-cta" href="showCart">Your Cart <span class="badge badge-pill badge-danger" style="color: #fff; background: #495057;">${cartQuantity} </span></a>
 	                 
 	                 </li>
 	    </ul>

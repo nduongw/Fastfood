@@ -6,7 +6,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
+import java.sql.Connection;
+
+import com.fastfood.entity.User;
+import com.fastfood.model.ConnectDatabase;
 
 @WebServlet(urlPatterns = {"/show-info"})
 public class ShowInfo extends HttpServlet {
@@ -18,6 +24,11 @@ public class ShowInfo extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		User cUser = (User)session.getAttribute("userAcc");
+		
+		
+		request.setAttribute("currentUser", cUser);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/ShowInfo.jsp");
 		
 		dispatcher.forward(request, response);

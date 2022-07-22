@@ -76,16 +76,12 @@ public class CheckOut extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-//			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/Home.jsp");
-//	        dispatcher.forward(request, response);
-			
 			session.removeAttribute("cartInfo");
-			response.sendRedirect("displayDish");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/CheckOutSuccess.jsp");
+	        dispatcher.forward(request, response);
+			
+//			response.sendRedirect("displayDish");
 		}
-		
-		
-		
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

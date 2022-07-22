@@ -121,37 +121,33 @@
                 
             <div class="content-container">
                 <nav class="nav-bar">
-                    <a href="./index.php" class="link-trang-chu">
+                    <a href="displayDish" class="link-trang-chu">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                        </svg> Về trang chủ</a>
+                        </svg>Go Back</a>
                 </nav>
                 <div id="user_register" class="box-content">
                     <h1>User's Information</h1>
-                    <form action="./register.php?action=reg" method="Post" autocomplete="off">
+                    <form action="change-cinfo" method="Post" autocomplete="off">
                         <div class="input-block">
                             <label>Username</label></br>
-                            <input type="text" name="username" value="" class="input-area"  placeholder=""><br/>
+                            <input type="text" name="username" value="${currentUser.account}" class="input-area"  placeholder=""><br/>
                         </div>
                         <div class="input-block">
                             <label>Email Address</label></br>
-                            <input type="password" name="password" value="" class="input-area" id="password" placeholder=""/></br>
+                            <input name="email" value="${currentUser.email}" class="input-area" id="password" placeholder=""/></br>
                         </div>
                         <div class="input-block">
                             <label>Name</label></br>
-                            <input type="text" name="first_name" value="" class="input-area"  placeholder=""><br/>
+                            <input type="text" name="name" value="${currentUser.name}" class="input-area"  placeholder=""><br/>
                         </div>
                         <div class="input-block">
                             <label>Address</label></br>
-                            <input type="text" name="last_name" value="" class="input-area"  placeholder=""><br/>
-                        </div>
-                         <div class="input-block">
-                            <label>Birthday</label></br>
-                            <input type="text" name="last_name" value="" class="input-area"  placeholder=""><br/>
+                            <input type="text" name="address" value="${currentUser.address}" class="input-area"  placeholder=""><br/>
                         </div>
                         <div class="input-block">
                             <label>Phone Number</label></br>
-                            <input type="text" name="last_name" value="" class="input-area"  placeholder=""><br/>
+                            <input type="text" name="phone" value="${currentUser.phone}" class="input-area"  placeholder=""><br/>
                         </div>
                         </br>
                         <input type="submit" value="Save" class="button"/>

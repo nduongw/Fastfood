@@ -20,21 +20,20 @@ import com.fastfood.entity.Dish;
 import com.fastfood.model.ConnectDatabase;
 import com.fastfood.utils.DBUtils;
 
-@WebServlet(urlPatterns = {"/displayDish", "/welcome", "/home", "/"})
-public class DisplayDish extends HttpServlet {
+@WebServlet(urlPatterns = {"/low-high"})
+public class DisplayDishLow2High extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
 
-    public DisplayDish() {
+    public DisplayDishLow2High() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = ConnectDatabase.getJDBCConnection();
 		HttpSession session = request.getSession();
-		int cartSize = 0;
 		
-//		String order = (String) request.getAttribute("high");
-//		System.out.println(order);
+		int cartSize = 0;
 		
 		@SuppressWarnings("unchecked")
 		ArrayList<Cart> cart_List = (ArrayList<Cart>)session.getAttribute("cartInfo");
@@ -47,7 +46,7 @@ public class DisplayDish extends HttpServlet {
 		
 		
 		try {
-			dishList = DBUtils.queryDish(conn);
+			dishList = DBUtils.queryDishLow2High(conn);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -58,14 +57,6 @@ public class DisplayDish extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		for (Dish dish: dishList) {
-			for (Category cate: categories) {
-				if (dish.getCategory_id() == cate.getId()) {
-					dish.setCategory(cate.getCateString());
-				}
-			}
-		}
-		
 //		cartSize = 4;
 		System.out.println("Cart size: " + cartSize);
 		
@@ -73,7 +64,6 @@ public class DisplayDish extends HttpServlet {
 		request.setAttribute("category", categories);
 		request.setAttribute("cartQuantity", String.valueOf(cartSize));
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/Home.jsp");
-//		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/Menu.jsp");
         dispatcher.forward(request, response);
 	}
 

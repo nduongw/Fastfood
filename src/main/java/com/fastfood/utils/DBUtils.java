@@ -47,6 +47,32 @@ public class DBUtils {
 		return null;
 	}
 	
+	public static Customer findUser(Connection connection, int userId) throws SQLException {
+		String sql = "SELECT * FROM `users`"
+				+ "WHERE user_id = ?";
+		
+		PreparedStatement pstm = connection.prepareStatement(sql);
+		pstm.setInt(1, userId);
+		
+		ResultSet rs = pstm.executeQuery();
+		
+		if (rs.next()) {
+			Customer accUser = new Customer();
+			accUser.setAccount(rs.getString("username"));
+			accUser.setPassword(rs.getString("password"));
+			accUser.setName(rs.getString("name"));
+			accUser.setAddress(rs.getString("address"));
+			accUser.setEmail(rs.getString("email"));
+			accUser.setPhone(rs.getString("phone"));
+			accUser.setUser_id(rs.getInt("user_id"));
+//			accUser.setPoint(rs.getIn);
+//			accUser.setMembership(0);
+			return accUser;
+		}
+		
+		return null;
+	}
+	
 	public static int addUser(Connection connection, String userName, String password, String email, String name, String phone) throws SQLException {
 		String sql = "INSERT INTO `users`(account, password, email, point, name, phone, membership) "
 				+ "VALUES(?, ?, ?, 0, ?, ?, 0)";
@@ -69,6 +95,19 @@ public class DBUtils {
 		}
 		
 		return 0;
+	}
+	
+	public static void changePasswordUser(Connection connection, String password, int userId) throws SQLException {
+		String sql = "UPDATE users\n"
+				+ "SET password = ?\n"
+				+ "WHERE user_id = ?";
+		
+		PreparedStatement pstm = connection.prepareStatement(sql);
+		
+		pstm.setString(1, password);
+		pstm.setInt(2, userId);
+		
+		pstm.executeUpdate();
 	}
 	
 	public static List<Dish> queryDish(Connection connection) throws SQLException {
@@ -284,18 +323,23 @@ public class DBUtils {
 					
 	}
 	
-	public static List<Favourite> getFavourites(Connection connection, int userId) throws SQLException {
-		String query = "SELECT dish_id FROM favorites WHERE user_id = ?";
-		List<Favourite> myFavourites = new ArrayList<Favourite>();
+	public static List<Dish> getFavourites(Connection connection, int userId) throws SQLException {
+		String query = "SELECT * FROM dishes \n"
+				+ "INNER JOIN favorites \n"
+				+ "WHERE dishes.dish_id = favorites.dish_id\n"
+				+ "AND user_id = ?";
+		
+		List<Dish> myFavourites = new ArrayList<Dish>();
 		
 		PreparedStatement pstm = connection.prepareStatement(query);
 		pstm.setInt(1, userId);
 		ResultSet rs = pstm.executeQuery();
 		
 		while(rs.next()) {
-			Favourite favourite = new Favourite();
-			favourite.setDishIdList(rs.getInt("dish_id"));
-			favourite.setUser_id(userId);
+			Dish favourite = new Dish();
+			favourite.setDish_id(rs.getInt("dish_id"));
+			favourite.setName(rs.getString("name"));
+			favourite.setImage(rs.getString("image"));
 			
 			myFavourites.add(favourite);
 		}
@@ -342,7 +386,26 @@ public class DBUtils {
 		}
 	}
 	
-
+	public static void changeCustomerInfo(Connection connection, String username, String email, String name, String address, String phone, int userId) throws SQLException {
+		String sql = "UPDATE users\n"
+				+ "SET account = ?,\n"
+				+ "	email = ?,\n"
+				+ "    name = ?,\n"
+				+ "    address = ?,\n"
+				+ "    phone = ?\n"
+				+ "WHERE user_id = ?";
+		
+		PreparedStatement pstm = connection.prepareStatement(sql);
+		
+		pstm.setString(1, username);
+		pstm.setString(2, email);
+		pstm.setString(3, name);
+		pstm.setString(4, address);
+		pstm.setString(5, phone);
+		pstm.setInt(6, userId);
+		
+		pstm.executeUpdate();
+	}
 	
 	public static void main(String args[]) throws SQLException {
 		DBUtils dbUtils = new DBUtils();
@@ -370,8 +433,10 @@ public class DBUtils {
 //			System.out.println(favourite.getDishIdList());
 //		}
 		
-		Dish dish = dbUtils.queryDish(conn, 351);
-		System.out.println(dish.getName());
+		List<Dish> dishs = dbUtils.getFavourites(conn, 3);
+		for (Dish dish: dishs) {
+			System.out.println(dish.getName());
+		}
 	}
 	
 }

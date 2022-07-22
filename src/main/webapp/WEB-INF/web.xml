@@ -239,4 +239,24 @@
     <servlet-name>ShowInfo</servlet-name>
     <url-pattern>/ShowInfo</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DisplayDishLow2High</display-name>
+    <servlet-name>DisplayDishLow2High</servlet-name>
+    <servlet-class>com.fastfood.controller.home.DisplayDishLow2High</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DisplayDishLow2High</servlet-name>
+    <url-pattern>/DisplayDishLow2High</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ChangeCustomerInfo</display-name>
+    <servlet-name>ChangeCustomerInfo</servlet-name>
+    <servlet-class>com.fastfood.controller.customer.ChangeCustomerInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChangeCustomerInfo</servlet-name>
+    <url-pattern>/ChangeCustomerInfo</url-pattern>
+  </servlet-mapping>
 </web-app>

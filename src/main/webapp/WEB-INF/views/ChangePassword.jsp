@@ -12,15 +12,15 @@
       	<div class="content-container">
         	<div class="login-section">
 				<h1 class="heading">Change your password</h1>
-				<form action="${pageContext.request.contextPath}/register" method="post">
+				<form action="${pageContext.request.contextPath}/change-password" method="post">
 					
-					<input name="username1" size="30" class="form" placeholder="Old Password"/>
+					<input type="password" name="oldPassword" size="30" class="form" placeholder="Old Password"/>
 					<br><br>
 					
-			        <input type="password" name="password1" size="30" class="form" placeholder="New Password">
+			        <input type="password" name="newPassword" size="30" class="form" placeholder="New Password">
 			        <br><br>
 					
-			        <input name="npassword" size="30" class="form" placeholder="Comfirm Password"/>
+			        <input type="password" name="confirmPassword" size="30" class="form" placeholder="Comfirm Password"/>
 			        <br><br>
 					
 			        <br><br>           
