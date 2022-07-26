@@ -34,7 +34,7 @@
                 <div class="category-item-flex">
         <img
             src="https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-            class="category-img" id="meal-img"
+            class="category-img" 
             alt="Japanese Gyozas"
           />
           <a href="cate?cid=1"><p style="font-size: 2rem; font-weight: 500;">Chicken</p></a>
@@ -42,7 +42,7 @@
         <div class="category-item-flex">
 	          <img
 	              src="https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80"
-	              class="category-img" id="meal-img"
+	              class="category-img" 
 	              alt="Japanese Gyozas"
 	            />
             <a href="cate?cid=2"><p style="font-size: 2rem; font-weight: 500">Rice + Spaghetti</p></a>
@@ -50,7 +50,7 @@
           <div class="category-item-flex">
             <img
                 src="https://images.unsplash.com/photo-1551782450-17144efb9c50?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
-                class="category-img" id="meal-img"
+                class="category-img" 
                 alt="Japanese Gyozas"
               />
               <a href="cate?cid=3"><p style="font-size: 2rem; font-weight: 500;">Burger</p></a>
@@ -58,15 +58,15 @@
             <div class="category-item-flex">
               <img
                   src="https://images.unsplash.com/photo-1606168094336-48f205276929?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-                  class="category-img" id="meal-img"
+                  class="category-img" 
                   alt="Japanese Gyozas"
                 />
                 <a href="cate?cid=4"><p style="font-size: 2rem; font-weight: 500;">Drink</p></a>
               </div>
               <div class="category-item-flex">
                 <img
-                    src="https://images.unsplash.com/photo-1530648672449-81f6c723e2f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=789&q=80"
-                    class="category-img" id="meal-img"
+                    src="https://images.unsplash.com/photo-1603384358453-e337643f75fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDN8fGRlc3NlcnR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+                    class="category-img" 
                     alt="Japanese Gyozas"
                   />
                   <a href="cate?cid=5"><p style="font-size: 2rem; font-weight: 500;">Dessert</p></a>
@@ -74,7 +74,7 @@
                 <div class="category-item-flex">
                   <img
                       src="https://images.unsplash.com/photo-1499715217757-2aa48ed7e593?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-                      class="category-img" id="meal-img"
+                      class="category-img" 
                       alt="Japanese Gyozas"
                     />
                     <a href="cate?cid=6"><p style="font-size: 2rem; font-weight: 500;">Side Dish</p></a>
@@ -134,7 +134,7 @@ border:none; margin-top: 5px"></input>
                               <a href="detail?pid=${o.dish_id}"> 
                               <img
 					            src="${o.image}"
-					            style="width: fixed; height: 45%"
+					            style="max-height: 25rem"
 					            class="meal-img" id="meal-img"
 					            alt="Japanese Gyozas"
           						/>
@@ -154,10 +154,10 @@ border:none; margin-top: 5px"></input>
 					                <span>20% <strong>Discount</strong></span>
 					              </li>
 					              
-					              <div class="meal-price">
+					              <div class="meal-price" style="margin-top: 30px; margin-bottom: 20px">
 					              	<c:if test="${sessionScope.userAcc.is_admin == 0}">
 					                <a href="add-to-favourite?id=${o.dish_id}"><ion-icon id="heart" class="meal-icon" name="heart"></ion-icon></a>
-					                <a href="add-to-cart?id=${o.dish_id}" class="btn btn--small">Add to cart</a>
+					                <a href="add-to-cart?id=${o.dish_id}" class="btn btn--small" style="margin-left: 30%; padding-left: 20px; padding-right: 20px;">Add to cart</a>
 					                </c:if>
 					                <div style="display: flex; gap: 40px;">
 						                <c:if test="${sessionScope.userAcc.is_admin > 1}">
@@ -379,11 +379,16 @@ a:hover, a:active {
 }
 
 .category-img {
+	display: block;
+  width: 100%;
+  transition: all 0.4s;
   border-radius: 5px;
-  width: 200px;
+  width: 185px;
   height: 120px;
 }
-    	
+.category-img:hover {
+	transform: scale(1.1);
+}
     </style>
 </html>
 

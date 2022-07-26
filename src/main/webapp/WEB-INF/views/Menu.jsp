@@ -1027,9 +1027,9 @@ strong {
 }
 
 .meal-icon {
-  height: 2.4rem;
-  width: 2.4rem;
-  color: #e67e22;
+  height: 3rem;
+  width: 3rem;
+  color: #37b24d;
 }
 
 .meal-img {
