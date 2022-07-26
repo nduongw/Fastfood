@@ -528,8 +528,8 @@ public class DBUtils {
 //		for (Favourite favourite : myFavourites) {
 //			System.out.println(favourite.getDishIdList());
 //		}
-		
-		List<Dish> dishs = dbUtils.getFavourites(conn, 3);
+		System.out.println(conn);
+		List<Dish> dishs = dbUtils.queryDish(conn);
 		for (Dish dish: dishs) {
 			System.out.println(dish.getName());
 		}
