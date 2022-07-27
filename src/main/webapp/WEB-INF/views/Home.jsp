@@ -61,7 +61,7 @@
                   class="category-img" 
                   alt="Japanese Gyozas"
                 />
-                <a href="cate?cid=4"><p style="font-size: 2rem; font-weight: 500;">Drink</p></a>
+                <a href="cate?cid=7"><p style="font-size: 2rem; font-weight: 500;">Drink</p></a>
               </div>
               <div class="category-item-flex">
                 <img
@@ -69,7 +69,7 @@
                     class="category-img" 
                     alt="Japanese Gyozas"
                   />
-                  <a href="cate?cid=5"><p style="font-size: 2rem; font-weight: 500;">Dessert</p></a>
+                  <a href="cate?cid=8"><p style="font-size: 2rem; font-weight: 500;">Dessert</p></a>
                 </div>
                 <div class="category-item-flex">
                   <img
@@ -177,6 +177,7 @@ border:none; margin-top: 5px"></input>
         </main>
     </body>
     <style>
+   
     	#card-container {
     	
   margin-top: 10rem;

@@ -113,7 +113,7 @@ public class DBUtils {
 	}
 	
 	public static List<Dish> queryDish(Connection connection) throws SQLException {
-		String sql = "SELECT * FROM dishes";
+		String sql = "SELECT * FROM products";
 		
 		PreparedStatement pstm = connection.prepareStatement(sql);
 		
@@ -122,7 +122,7 @@ public class DBUtils {
 		List<Dish> dishList = new ArrayList<Dish>();
 		
 		while (rs.next()) {
-			int dish_id = rs.getInt("dish_id");
+			int dish_id = rs.getInt("product_id");
 			String name = rs.getString("name");
 			int category_id = rs.getInt("category_id");
 			String description = rs.getString("description");
@@ -137,7 +137,7 @@ public class DBUtils {
 	}
 	
 	public static List<Dish> queryDishLow2High(Connection connection) throws SQLException {
-		String sql = "SELECT * FROM dishes "
+		String sql = "SELECT * FROM products "
 					+ "ORDER BY price";
 		
 		PreparedStatement pstm = connection.prepareStatement(sql);
@@ -147,7 +147,7 @@ public class DBUtils {
 		List<Dish> dishList = new ArrayList<Dish>();
 		
 		while (rs.next()) {
-			int dish_id = rs.getInt("dish_id");
+			int dish_id = rs.getInt("product_id");
 			String name = rs.getString("name");
 			int category_id = rs.getInt("category_id");
 			String description = rs.getString("description");
@@ -162,7 +162,7 @@ public class DBUtils {
 	}
 	
 	public static List<Dish> queryDishHigh2Low(Connection connection) throws SQLException {
-		String sql = "SELECT * FROM dishes "
+		String sql = "SELECT * FROM products "
 				+ "ORDER BY price DESC";
 		
 		PreparedStatement pstm = connection.prepareStatement(sql);
@@ -172,7 +172,7 @@ public class DBUtils {
 		List<Dish> dishList = new ArrayList<Dish>();
 		
 		while (rs.next()) {
-			int dish_id = rs.getInt("dish_id");
+			int dish_id = rs.getInt("product_id");
 			String name = rs.getString("name");
 			int category_id = rs.getInt("category_id");
 			String description = rs.getString("description");
@@ -187,7 +187,7 @@ public class DBUtils {
 	}
 	
 	public static List<Dish> queryDish(Connection connection, String id) throws SQLException {
-		String sql = "SELECT * FROM dishes "
+		String sql = "SELECT * FROM products "
 				+ "WHERE category_id = ?";
 		
 		PreparedStatement pstm = connection.prepareStatement(sql);
@@ -198,7 +198,7 @@ public class DBUtils {
 		List<Dish> dishList = new ArrayList<Dish>();
 		
 		while (rs.next()) {
-			int dish_id = rs.getInt("dish_id");
+			int dish_id = rs.getInt("product_id");
 			String name = rs.getString("name");
 			int category_id = rs.getInt("category_id");
 			String description = rs.getString("description");
@@ -213,8 +213,8 @@ public class DBUtils {
 	}
 	
 	public static Dish queryDish(Connection connection, int pid) throws SQLException {
-		String sql = "SELECT * FROM dishes "
-				+ "WHERE dish_id = ?";
+		String sql = "SELECT * FROM products "
+				+ "WHERE product_id = ?";
 		
 		PreparedStatement pstm = connection.prepareStatement(sql);
 		pstm.setInt(1, pid);
@@ -224,7 +224,7 @@ public class DBUtils {
 		Dish dish = null;
 		
 		while (rs.next()) {
-			int dish_id = rs.getInt("dish_id");
+			int dish_id = rs.getInt("product_id");
 			String name = rs.getString("name");
 			int category_id = rs.getInt("category_id");
 			String description = rs.getString("description");
@@ -259,7 +259,7 @@ public class DBUtils {
 	}
 	
 	public static List<Dish> searchByName(Connection connection, String searchName) throws SQLException {
-		String sql = "SELECT * FROM dishes "
+		String sql = "SELECT * FROM products "
 				+ "WHERE name like ?";
 		
 		PreparedStatement pstm = connection.prepareStatement(sql);
@@ -270,7 +270,7 @@ public class DBUtils {
 		List<Dish> dishList = new ArrayList<Dish>();
 		
 		while (rs.next()) {
-			int dish_id = rs.getInt("dish_id");
+			int dish_id = rs.getInt("product_id");
 			String name = rs.getString("name");
 			int category_id = rs.getInt("category_id");
 			String description = rs.getString("description");
@@ -289,7 +289,7 @@ public class DBUtils {
 		
 		if (cartList.size() > 0) {
 			for (Cart item: cartList) {
-				String queryString = "SELECT * FROM dishes WHERE dish_id = ?";
+				String queryString = "SELECT * FROM products WHERE product_id = ?";
 									
 				PreparedStatement pstm = connection.prepareStatement(queryString);
 				pstm.setInt(1, item.getDish_id());
@@ -316,7 +316,7 @@ public class DBUtils {
 	}
 	
 	public static void addFavourite(Connection connection, int userId, int dishId) throws SQLException {
-		String query = "INSERT INTO `favorites`(user_id, dish_id) VALUES(?, ?)";
+		String query = "INSERT INTO `favorites`(user_id, product_id) VALUES(?, ?)";
 		PreparedStatement pstm = connection.prepareStatement(query);
 		pstm.setInt(1, userId);
 		pstm.setInt(2, dishId);
@@ -326,9 +326,9 @@ public class DBUtils {
 	}
 	
 	public static List<Dish> getFavourites(Connection connection, int userId) throws SQLException {
-		String query = "SELECT * FROM dishes \n"
+		String query = "SELECT * FROM products \n"
 				+ "INNER JOIN favorites \n"
-				+ "WHERE dishes.dish_id = favorites.dish_id\n"
+				+ "WHERE products.product_id = favorites.product_id\n"
 				+ "AND user_id = ?";
 		
 		List<Dish> myFavourites = new ArrayList<Dish>();
@@ -339,7 +339,7 @@ public class DBUtils {
 		
 		while(rs.next()) {
 			Dish favourite = new Dish();
-			favourite.setDish_id(rs.getInt("dish_id"));
+			favourite.setDish_id(rs.getInt("product_id"));
 			favourite.setName(rs.getString("name"));
 			favourite.setImage(rs.getString("image"));
 			
@@ -350,7 +350,7 @@ public class DBUtils {
 	}
 	
 	public static void removeFavourite(Connection connection, int userId, int dishId) throws SQLException{
-		String query = "DELETE FROM favorites WHERE user_id = ? AND dish_id = ?";
+		String query = "DELETE FROM favorites WHERE user_id = ? AND product_id = ?";
 		PreparedStatement pstm = connection.prepareStatement(query);
 		pstm.setInt(1, userId);
 		pstm.setInt(2, dishId);
@@ -362,7 +362,7 @@ public class DBUtils {
 		String query1 = "INSERT INTO `receipts`(receipt_id, user_id, status, time, payment, total_payment) "
 				+ "VALUES(?, ?, 0, ?, 1, ?)";
 		
-		String query2 = "INSERT INTO `receipts_dishes`(receipt_id, dish_id) "
+		String query2 = "INSERT INTO `receipts_dishes`(receipt_id, product_id) "
 				+ "VALUES(?, ?)";
 		
 		PreparedStatement pstm = connection.prepareStatement(query1);
@@ -428,14 +428,14 @@ public class DBUtils {
 	}
 	
 	public static List<Dish> queryallDish(Connection connection) throws SQLException {
-		String sql = "SELECT * FROM dishes";
+		String sql = "SELECT * FROM products";
 		PreparedStatement pstm = connection.prepareStatement(sql);
 		List<Dish> dishList = new ArrayList<Dish>();
 		
 		ResultSet rs = pstm.executeQuery();
 		
 		while (rs.next()) {
-			int dish_id = rs.getInt("dish_id");
+			int dish_id = rs.getInt("product_id");
 			String name = rs.getString("name");
 			int category_id = rs.getInt("category_id");
 			String description = rs.getString("description");
@@ -469,10 +469,10 @@ public class DBUtils {
 	}
 	
 	public static int editDish(Connection connection, int id, String name, int category_id, String description, int price) throws SQLException {
-		String sql = "UPDATE dishes "
+		String sql = "UPDATE products "
 				+ "SET name = '" + name + "', category_id = " + category_id + 
 				", description = '" + description + "', price = " + price + 
-				" WHERE dish_id = " + id + ";";
+				" WHERE product_id = " + id + ";";
 
 		try {
 			connection.prepareStatement(sql).executeUpdate();
@@ -484,9 +484,9 @@ public class DBUtils {
 	}
 	
 	public static int deleteDish(Connection connection, int dish_id) throws SQLException {
-		String sql = "DELETE FROM dishes WHERE dish_id = ?";
-		String sql2 = "DELETE FROM favorites WHERE dish_id = ?";
-		String sql3 = "DELETE FROM receipts_dishes WHERE dish_id = ?";
+		String sql = "DELETE FROM products WHERE product_id = ?";
+		String sql2 = "DELETE FROM favorites WHERE product_id = ?";
+		String sql3 = "DELETE FROM receipts_dishes WHERE product_id = ?";
 		
 		PreparedStatement pstm = connection.prepareStatement(sql2);
 		pstm.setInt(1, dish_id);
