@@ -6,17 +6,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import org.apache.catalina.realm.UserDatabaseRealm;
-import org.apache.jasper.tagplugins.jstl.core.If;
-
+import com.fastfood.entity.Admin;
 import com.fastfood.entity.Customer;
-import com.fastfood.entity.User;
 import com.fastfood.model.ConnectDatabase;
 import com.fastfood.utils.DBUtils;
 
@@ -42,19 +37,40 @@ public class Login extends HttpServlet {
 		String userName = request.getParameter("email");
 		String passwordString = request.getParameter("password");		
 		
-		DBUtils utils = new DBUtils();
 		String destPage = "WEB-INF/views/login.jsp";
 		ConnectDatabase con = new ConnectDatabase();
 		Connection dbcon = con.getJDBCConnection();
 		
-		User user = new User();
-		
-		int check = user.login(dbcon, userName, passwordString, request, response);
-		if (check == 0) {
-			request.getRequestDispatcher(destPage).forward(request, response);
-		} else {
-			request.getRequestDispatcher("/displayDish").forward(request, response);			
+		int checkAdmin = 0;
+		try {
+			checkAdmin = DBUtils.checkAdmin(dbcon, userName, passwordString);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		
+		if (checkAdmin == 1) {
+			Admin admin = new Admin();
+			
+			int check = admin.login(dbcon, userName, passwordString, request, response);
+			
+			if (check == 0) {
+				request.getRequestDispatcher(destPage).forward(request, response);
+			} else {
+				request.getRequestDispatcher("/displayDish").forward(request, response);			
+			}
+		} else {
+			Customer customer = new Customer();
+			
+			int check = customer.login(dbcon, userName, passwordString, request, response);
+			
+			if (check == 0) {
+				request.getRequestDispatcher(destPage).forward(request, response);
+			} else {
+				request.getRequestDispatcher("/displayDish").forward(request, response);			
+			}
+		}
+		
+		
 		
 		
 	}

@@ -5,25 +5,27 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.internal.compiler.IDebugRequestor;
-import org.eclipse.jdt.internal.compiler.ast.ThisReference;
-
+import com.fastfood.entity.Admin;
+import com.fastfood.entity.Burger;
 import com.fastfood.entity.Cart;
 import com.fastfood.entity.Category;
+import com.fastfood.entity.Chicken;
 import com.fastfood.entity.Customer;
-import com.fastfood.entity.Dish;
-import com.fastfood.entity.Favourite;
+import com.fastfood.entity.Drink;
+import com.fastfood.entity.Other;
+import com.fastfood.entity.Product;
 import com.fastfood.entity.Receipt;
+import com.fastfood.entity.Rice;
+import com.fastfood.entity.SideDish;
+import com.fastfood.entity.Spaghetti;
 import com.fastfood.entity.User;
 import com.fastfood.model.ConnectDatabase;
-import com.mysql.cj.jdbc.ConnectionImpl;
 
 public class DBUtils {
-	public static Customer findUser(Connection connection, String userName, String password) throws SQLException {
+	public static User findUser(Connection connection, String userName, String password) throws SQLException {
 		String sql = "SELECT * FROM `users`"
 				+ "WHERE account = ? AND password = ?";
 		
@@ -33,49 +35,51 @@ public class DBUtils {
 		
 		ResultSet rs = pstm.executeQuery();
 		
+		int is_admin = 0;
+		
 		if (rs.next()) {
-			Customer accUser = new Customer();
-			accUser.setAccount(userName);
-			accUser.setPassword(password);
-			accUser.setName(rs.getString("name"));
-			accUser.setAddress(rs.getString("address"));
-			accUser.setEmail(rs.getString("email"));
-			accUser.setPhone(rs.getString("phone"));
-			accUser.setUser_id(rs.getInt("user_id"));
-			accUser.setPoint(0);
-			accUser.setMembership(0);
-			accUser.setIs_admin(rs.getInt("is_admin"));
-
-			return accUser;
+			is_admin = rs.getInt("is_admin");
+			int id = rs.getInt("user_id");
+			String account = rs.getString("account");
+			String userPassword = rs.getString("password");
+			String email = rs.getString("email");
+			String name = rs.getString("name");
+			String address = rs.getString("address");
+			String phone = rs.getString("phone");
+			
+			if (is_admin != 0) {
+				Admin admin = new Admin(id, account, userPassword, email, name, address, phone, is_admin);
+				
+				return admin;
+				
+			} else {
+				int point = rs.getInt("point");
+				int membership = rs.getInt("membership");
+				Customer customer = new Customer(id, account, userPassword, email, name, address, phone, is_admin, point, membership);
+				
+				return customer;
+			}
 		}
 		
 		return null;
 	}
 	
-	public static Customer findUser(Connection connection, int userId) throws SQLException {
+	public static int checkAdmin(Connection connection, String userName, String password) throws SQLException {
 		String sql = "SELECT * FROM `users`"
-				+ "WHERE user_id = ?";
+				+ "WHERE account = ? AND password = ?";
 		
 		PreparedStatement pstm = connection.prepareStatement(sql);
-		pstm.setInt(1, userId);
+		pstm.setString(1, userName);
+		pstm.setString(2, password);
 		
 		ResultSet rs = pstm.executeQuery();
+		int result = 0;
 		
 		if (rs.next()) {
-			Customer accUser = new Customer();
-			accUser.setAccount(rs.getString("username"));
-			accUser.setPassword(rs.getString("password"));
-			accUser.setName(rs.getString("name"));
-			accUser.setAddress(rs.getString("address"));
-			accUser.setEmail(rs.getString("email"));
-			accUser.setPhone(rs.getString("phone"));
-			accUser.setUser_id(rs.getInt("user_id"));
-//			accUser.setPoint(rs.getIn);
-//			accUser.setMembership(0);
-			return accUser;
+			result = rs.getInt("is_admin");
 		}
 		
-		return null;
+		return result;
 	}
 	
 	public static int addUser(Connection connection, String userName, String password, String email, String name, String phone) throws SQLException {
@@ -115,82 +119,63 @@ public class DBUtils {
 		pstm.executeUpdate();
 	}
 	
-	public static List<Dish> queryDish(Connection connection) throws SQLException {
-		String sql = "SELECT * FROM dishes";
+	public static List<Product> queryDish(Connection connection) throws SQLException {
+		String sql = "SELECT * FROM products";
 		
 		PreparedStatement pstm = connection.prepareStatement(sql);
 		
 		ResultSet rs = pstm.executeQuery();
 		
-		List<Dish> dishList = new ArrayList<Dish>();
+		List<Product> productList = new ArrayList<Product>();
 		
 		while (rs.next()) {
-			int dish_id = rs.getInt("dish_id");
+			int dish_id = rs.getInt("product_id");
 			String name = rs.getString("name");
 			int category_id = rs.getInt("category_id");
 			String description = rs.getString("description");
 			int price = rs.getInt("price");
 			String image = rs.getString("image");
 			
-			Dish nDish = new Dish(dish_id, name, category_id, description, price, image);
-			dishList.add(nDish);
+			switch (category_id){
+			case 1: {
+				Chicken chicken = new Chicken(dish_id, name, description, price, image);
+				productList.add(chicken);
+				break;
+			} case 2: {
+				Rice rice = new Rice(dish_id, name, description, price, image);
+				productList.add(rice);
+				break;
+			} case 3: {
+				Burger burger = new Burger(dish_id, name, description, price, image);
+				productList.add(burger);
+				break;
+			} case 4: {
+				Spaghetti spaghetti = new Spaghetti(dish_id, name, description, price, image);
+				productList.add(spaghetti);
+				break;
+			} case 6: {
+				SideDish sideDish = new SideDish(dish_id, name, description, price, image);
+				productList.add(sideDish);
+				break;
+			} case 7: {
+				Drink drink = new Drink(dish_id, name, description, price, image);
+				productList.add(drink);
+				break;
+			} case 9: {
+				Other other = new Other(dish_id, name, description, price, image);
+				productList.add(other);
+				break;
+			}
+			default:
+				break;
+			}
 		}
 		
-		return dishList;
+		return productList;
 	}
 	
-	public static List<Dish> queryDishLow2High(Connection connection) throws SQLException {
-		String sql = "SELECT * FROM dishes "
-					+ "ORDER BY price";
-		
-		PreparedStatement pstm = connection.prepareStatement(sql);
-		
-		ResultSet rs = pstm.executeQuery();
-		
-		List<Dish> dishList = new ArrayList<Dish>();
-		
-		while (rs.next()) {
-			int dish_id = rs.getInt("dish_id");
-			String name = rs.getString("name");
-			int category_id = rs.getInt("category_id");
-			String description = rs.getString("description");
-			int price = rs.getInt("price");
-			String image = rs.getString("image");
-			
-			Dish nDish = new Dish(dish_id, name, category_id, description, price, image);
-			dishList.add(nDish);
-		}
-		
-		return dishList;
-	}
-	
-	public static List<Dish> queryDishHigh2Low(Connection connection) throws SQLException {
-		String sql = "SELECT * FROM dishes "
-				+ "ORDER BY price DESC";
-		
-		PreparedStatement pstm = connection.prepareStatement(sql);
-		
-		ResultSet rs = pstm.executeQuery();
-		
-		List<Dish> dishList = new ArrayList<Dish>();
-		
-		while (rs.next()) {
-			int dish_id = rs.getInt("dish_id");
-			String name = rs.getString("name");
-			int category_id = rs.getInt("category_id");
-			String description = rs.getString("description");
-			int price = rs.getInt("price");
-			String image = rs.getString("image");
-			
-			Dish nDish = new Dish(dish_id, name, category_id, description, price, image);
-			dishList.add(nDish);
-		}
-		
-		return dishList;
-	}
-	
-	public static List<Dish> queryDish(Connection connection, String id) throws SQLException {
-		String sql = "SELECT * FROM dishes "
+	public static List<Product> queryDish(Connection connection, String id) throws SQLException {
+		String sql = "SELECT * FROM products "
 				+ "WHERE category_id = ?";
 		
 		PreparedStatement pstm = connection.prepareStatement(sql);
@@ -198,43 +183,99 @@ public class DBUtils {
 		
 		ResultSet rs = pstm.executeQuery();
 		
-		List<Dish> dishList = new ArrayList<Dish>();
+		List<Product> productList = new ArrayList<Product>();
 		
 		while (rs.next()) {
-			int dish_id = rs.getInt("dish_id");
+			int dish_id = rs.getInt("product_id");
 			String name = rs.getString("name");
 			int category_id = rs.getInt("category_id");
 			String description = rs.getString("description");
 			int price = rs.getInt("price");
 			String image = rs.getString("image");
 			
-			Dish nDish = new Dish(dish_id, name, category_id, description, price, image);
-			dishList.add(nDish);
+			switch (category_id){
+			case 1: {
+				Chicken chicken = new Chicken(dish_id, name, description, price, image);
+				productList.add(chicken);
+				break;
+			} case 2: {
+				Rice rice = new Rice(dish_id, name, description, price, image);
+				productList.add(rice);
+				break;
+			} case 3: {
+				Burger burger = new Burger(dish_id, name, description, price, image);
+				productList.add(burger);
+				break;
+			} case 4: {
+				Spaghetti spaghetti = new Spaghetti(dish_id, name, description, price, image);
+				productList.add(spaghetti);
+				break;
+			} case 6: {
+				SideDish sideDish = new SideDish(dish_id, name, description, price, image);
+				productList.add(sideDish);
+				break;
+			} case 7: {
+				Drink drink = new Drink(dish_id, name, description, price, image);
+				productList.add(drink);
+				break;
+			} case 9: {
+				Other other = new Other(dish_id, name, description, price, image);
+				productList.add(other);
+				break;
+			}
+			default:
+				break;
+			}
 		}
 		
-		return dishList;
+		return productList;
 	}
 	
-	public static Dish queryDish(Connection connection, int pid) throws SQLException {
-		String sql = "SELECT * FROM dishes "
-				+ "WHERE dish_id = ?";
+	public static Product queryDish(Connection connection, int pid) throws SQLException {
+		String sql = "SELECT * FROM products "
+				+ "WHERE product_id = ?";
 		
 		PreparedStatement pstm = connection.prepareStatement(sql);
 		pstm.setInt(1, pid);
 		
 		ResultSet rs = pstm.executeQuery();
 		
-		Dish dish = null;
+		Product dish = null;
 		
 		while (rs.next()) {
-			int dish_id = rs.getInt("dish_id");
+			int dish_id = rs.getInt("product_id");
 			String name = rs.getString("name");
 			int category_id = rs.getInt("category_id");
 			String description = rs.getString("description");
 			int price = rs.getInt("price");
 			String image = rs.getString("image");
 			
-			dish = new Dish(dish_id, name, category_id, description, price, image);
+			switch (category_id){
+			case 1: {
+				Chicken chicken = new Chicken(dish_id, name, description, price, image);
+				return chicken;
+			} case 2: {
+				Rice rice = new Rice(dish_id, name, description, price, image);
+				return rice;
+			} case 3: {
+				Burger burger = new Burger(dish_id, name, description, price, image);
+				return burger;
+			} case 4: {
+				Spaghetti spaghetti = new Spaghetti(dish_id, name, description, price, image);
+				return spaghetti;
+			} case 6: {
+				SideDish sideDish = new SideDish(dish_id, name, description, price, image);
+				return sideDish;
+			} case 7: {
+				Drink drink = new Drink(dish_id, name, description, price, image);
+				return drink;
+			} case 9: {
+				Other other = new Other(dish_id, name, description, price, image);
+				return other;
+			}
+			default:
+				break;
+			}
 		}
 		
 		return dish;
@@ -261,8 +302,8 @@ public class DBUtils {
 		return categoryList;
 	}
 	
-	public static List<Dish> searchByName(Connection connection, String searchName) throws SQLException {
-		String sql = "SELECT * FROM dishes "
+	public static List<Product> searchByName(Connection connection, String searchName) throws SQLException {
+		String sql = "SELECT * FROM products "
 				+ "WHERE name like ?";
 		
 		PreparedStatement pstm = connection.prepareStatement(sql);
@@ -270,21 +311,52 @@ public class DBUtils {
 		
 		ResultSet rs = pstm.executeQuery();
 		
-		List<Dish> dishList = new ArrayList<Dish>();
+		List<Product> productList = new ArrayList<Product>();
 		
 		while (rs.next()) {
-			int dish_id = rs.getInt("dish_id");
+			int dish_id = rs.getInt("product_id");
 			String name = rs.getString("name");
 			int category_id = rs.getInt("category_id");
 			String description = rs.getString("description");
 			int price = rs.getInt("price");
 			String image = rs.getString("image");
 			
-			Dish nDish = new Dish(dish_id, name, category_id, description, price, image);
-			dishList.add(nDish);
+			switch (category_id){
+			case 1: {
+				Chicken chicken = new Chicken(dish_id, name, description, price, image);
+				productList.add(chicken);
+				break;
+			} case 2: {
+				Rice rice = new Rice(dish_id, name, description, price, image);
+				productList.add(rice);
+				break;
+			} case 3: {
+				Burger burger = new Burger(dish_id, name, description, price, image);
+				productList.add(burger);
+				break;
+			} case 4: {
+				Spaghetti spaghetti = new Spaghetti(dish_id, name, description, price, image);
+				productList.add(spaghetti);
+				break;
+			} case 6: {
+				SideDish sideDish = new SideDish(dish_id, name, description, price, image);
+				productList.add(sideDish);
+				break;
+			} case 7: {
+				Drink drink = new Drink(dish_id, name, description, price, image);
+				productList.add(drink);
+				break;
+			} case 9: {
+				Other other = new Other(dish_id, name, description, price, image);
+				productList.add(other);
+				break;
+			}
+			default:
+				break;
+			}
 		}
 		
-		return dishList;
+		return productList;
 	}
 	
 	public static List<Cart> getAllCart(Connection connection, ArrayList<Cart> cartList) throws SQLException {
@@ -292,10 +364,10 @@ public class DBUtils {
 		
 		if (cartList.size() > 0) {
 			for (Cart item: cartList) {
-				String queryString = "SELECT * FROM dishes WHERE dish_id = ?";
+				String queryString = "SELECT * FROM products WHERE product_id = ?";
 									
 				PreparedStatement pstm = connection.prepareStatement(queryString);
-				pstm.setInt(1, item.getDish_id());
+				pstm.setInt(1, item.getId());
 				
 				ResultSet rs = pstm.executeQuery();
 				
@@ -304,11 +376,10 @@ public class DBUtils {
 					
 					cart.setImage(rs.getString("image"));
 					cart.setName(rs.getString("name"));
-					cart.setCategory_id(rs.getInt("category_id"));
 					cart.setDescription(rs.getString("description"));
 					cart.setQuantity(item.getQuantity());
 					cart.setPrice(rs.getInt("price") * cart.getQuantity());
-					cart.setDish_id(item.getDish_id());
+					cart.setId(item.getId());
 					
 					products.add(cart);
 				}
@@ -319,7 +390,7 @@ public class DBUtils {
 	}
 	
 	public static void addFavourite(Connection connection, int userId, int dishId) throws SQLException {
-		String query = "INSERT INTO `favorites`(user_id, dish_id) VALUES(?, ?)";
+		String query = "INSERT INTO `favorites`(user_id, product_id) VALUES(?, ?)";
 		PreparedStatement pstm = connection.prepareStatement(query);
 		pstm.setInt(1, userId);
 		pstm.setInt(2, dishId);
@@ -328,21 +399,21 @@ public class DBUtils {
 					
 	}
 	
-	public static List<Dish> getFavourites(Connection connection, int userId) throws SQLException {
-		String query = "SELECT * FROM dishes \n"
+	public static List<Product> getFavourites(Connection connection, int userId) throws SQLException {
+		String query = "SELECT * FROM products \n"
 				+ "INNER JOIN favorites \n"
-				+ "WHERE dishes.dish_id = favorites.dish_id\n"
+				+ "WHERE products.product_id = favorites.product_id\n"
 				+ "AND user_id = ?";
 		
-		List<Dish> myFavourites = new ArrayList<Dish>();
+		List<Product> myFavourites = new ArrayList<Product>();
 		
 		PreparedStatement pstm = connection.prepareStatement(query);
 		pstm.setInt(1, userId);
 		ResultSet rs = pstm.executeQuery();
 		
 		while(rs.next()) {
-			Dish favourite = new Dish();
-			favourite.setDish_id(rs.getInt("dish_id"));
+			Product favourite = new Product();
+			favourite.setId(rs.getInt("product_id"));
 			favourite.setName(rs.getString("name"));
 			favourite.setImage(rs.getString("image"));
 			
@@ -353,7 +424,7 @@ public class DBUtils {
 	}
 	
 	public static void removeFavourite(Connection connection, int userId, int dishId) throws SQLException{
-		String query = "DELETE FROM favorites WHERE user_id = ? AND dish_id = ?";
+		String query = "DELETE FROM favorites WHERE user_id = ? AND product_id = ?";
 		PreparedStatement pstm = connection.prepareStatement(query);
 		pstm.setInt(1, userId);
 		pstm.setInt(2, dishId);
@@ -365,7 +436,7 @@ public class DBUtils {
 		String query1 = "INSERT INTO `receipts`(receipt_id, user_id, status, time, payment, total_payment) "
 				+ "VALUES(?, ?, 0, ?, 1, ?)";
 		
-		String query2 = "INSERT INTO `receipts_dishes`(receipt_id, dish_id) "
+		String query2 = "INSERT INTO `receipts_dishes`(receipt_id, product_id) "
 				+ "VALUES(?, ?)";
 		
 		PreparedStatement pstm = connection.prepareStatement(query1);
@@ -384,9 +455,9 @@ public class DBUtils {
 		pstm = connection.prepareStatement(query2);
 		pstm.setInt(1, randomId);
 		
-		for (Cart cart: receipt.getCartList()) {
-			System.out.println(cart.getDish_id());
-			pstm.setInt(2, cart.getDish_id());
+		for (Cart cart: receipt.getProducts()) {
+			System.out.println(cart.getId());
+			pstm.setInt(2, cart.getId());
 			pstm.executeUpdate();
 		}
 	}
@@ -420,7 +491,7 @@ public class DBUtils {
 		ResultSet rs = pstm.executeQuery();
 		if (rs.next()) {
 			int category_id = rs.getInt("category_id");
-			sql = "INSERT INTO dishes (name, category_id, description, price) VALUES ('"
+			sql = "INSERT INTO products (name, category_id, description, price) VALUES ('"
 					+ name + "', " + category_id + ", '" + description + "', " + price + ");";
 			connection.prepareStatement(sql).executeUpdate();
 			System.out.println("Added successfully");
@@ -428,27 +499,6 @@ public class DBUtils {
 		}
 
 		return 0;
-	}
-	
-	public static List<Dish> queryallDish(Connection connection) throws SQLException {
-		String sql = "SELECT * FROM dishes";
-		PreparedStatement pstm = connection.prepareStatement(sql);
-		List<Dish> dishList = new ArrayList<Dish>();
-		
-		ResultSet rs = pstm.executeQuery();
-		
-		while (rs.next()) {
-			int dish_id = rs.getInt("dish_id");
-			String name = rs.getString("name");
-			int category_id = rs.getInt("category_id");
-			String description = rs.getString("description");
-			int price = rs.getInt("price");
-			
-			Dish nDish = new Dish(dish_id, name, category_id, description, price);
-			dishList.add(nDish);
-		}
-
-		return dishList;
 	}
 	
 	public static List<Category> queryallCategory(Connection connection) throws SQLException {
@@ -504,33 +554,6 @@ public class DBUtils {
 		pstm.executeUpdate();
 		
 		return 1;
-	}
-	
-	public static List<User> getAllUsers(Connection connection) throws SQLException {
-		String sql = "SELECT * FROM users";
-		
-		PreparedStatement pstm = connection.prepareStatement(sql);
-
-		ResultSet rs = pstm.executeQuery();
-
-		List<User> userList = new ArrayList<User>();
-
-		while (rs.next()) {
-			int id = rs.getInt("user_id");
-			String account = rs.getString("account");
-			String email = rs.getString("email");
-			int point = rs.getInt("point");
-			String name = rs.getString("name");
-			String phone = rs.getString("phone");
-			String address = rs.getString("address");
-			int membership = rs.getInt("membership");
-			int admin = rs.getInt("is_admin");
-
-			User user = new User(id, account, email, name, address, phone, admin, point);
-			userList.add(user);
-		}
-
-		return userList;
 	}
 	
 	public static int removeAccount(Connection connection, int id) throws SQLException {
@@ -607,7 +630,6 @@ public class DBUtils {
 	}
 	
 	public static void main(String args[]) throws SQLException {
-		DBUtils dbUtils = new DBUtils();
 		Connection conn = ConnectDatabase.getJDBCConnection();
 //		Cart test1 = new Cart();
 //		test1.setDish_id(351);
@@ -637,11 +659,14 @@ public class DBUtils {
 //			System.out.println(dish.getName());
 //		}
 		
-		System.out.println(conn);
-		List<User> users = dbUtils.getAllUsers(conn);
-		for (User user: users) {
-			System.out.println(user.getName());
+		List<Product> products = DBUtils.getFavourites(conn, 6);
+		
+		for (Product product: products) {
+			System.out.println(product.getName());
 		}
+		
+//		Product product = dbUtils.queryDish(conn, 351);
+//		System.out.println(product.getName());
 	}
 	
 }

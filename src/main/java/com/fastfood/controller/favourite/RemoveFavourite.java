@@ -9,15 +9,9 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import com.fastfood.entity.Cart;
 import com.fastfood.entity.Customer;
-import com.fastfood.entity.Favourite;
 import com.fastfood.entity.User;
 import com.fastfood.model.ConnectDatabase;
-import com.fastfood.utils.DBUtils;
 
 @WebServlet(urlPatterns = {"/remove-from-favourite"})
 public class RemoveFavourite extends HttpServlet {

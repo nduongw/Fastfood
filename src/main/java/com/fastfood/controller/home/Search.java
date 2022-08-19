@@ -8,14 +8,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 import com.fastfood.entity.Category;
 import com.fastfood.entity.Customer;
-import com.fastfood.entity.Dish;
+import com.fastfood.entity.Product;
 import com.fastfood.model.ConnectDatabase;
-import com.fastfood.utils.DBUtils;
 
 @WebServlet(urlPatterns = {"/search"})
 public class Search extends HttpServlet {
@@ -24,25 +22,29 @@ public class Search extends HttpServlet {
     public Search() {
         super();
     }
-
-
+    
+	@SuppressWarnings("null")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String txtSearch = request.getParameter("txt");
 		
 		Connection conn = ConnectDatabase.getJDBCConnection();
-		List<Dish> dishList = null;
+		List<Product> dishList = null;
 		List<Category> categories = null;
 		
 		Customer customer = new Customer();
 		
-		customer.search(dishList, categories, conn, txtSearch);
+		dishList = customer.search(categories, conn, txtSearch);
 		
 		request.setAttribute("dishL", dishList);
 		request.setAttribute("category", categories);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/Home.jsp");
         dispatcher.forward(request, response);
         
-        for (Dish obj : dishList) {
+        if (dishList == null) {
+        	System.out.println("Nullll");
+        }
+        
+        for (Product obj : dishList) {
 			System.out.println(obj.getName());
 		}
 	}

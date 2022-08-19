@@ -12,7 +12,7 @@ public class ConnectDatabase {
 		String password = "Duongsuper123*";
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			return DriverManager.getConnection(urlString, userName, password);
 		} catch (ClassNotFoundException e) {
@@ -30,11 +30,7 @@ public class ConnectDatabase {
 		ConnectDatabase connection = new ConnectDatabase();
 		Connection conn = connection.getJDBCConnection();
 		System.out.println(conn);
-		if (connection == null) {
-			System.out.println("Cant connect to db");
-		} else {
-			System.out.println("Connected");
-			System.out.println(connection);
-		}
+		System.out.println("Connected");
+		System.out.println(connection);
 	}
 }

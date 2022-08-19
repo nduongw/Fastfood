@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import com.fastfood.entity.Dish;
+import com.fastfood.entity.Product;
 import com.fastfood.model.ConnectDatabase;
 import com.fastfood.utils.DBUtils;
 
@@ -27,18 +27,20 @@ public class Detail extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int pid = Integer.parseInt(request.getParameter("pid"));
-		Dish dish = new Dish();
+		Product product = new Product();
 		Connection dbcon = ConnectDatabase.getJDBCConnection();
 		HttpSession session = request.getSession();
 		
 		try {
-			dish = DBUtils.queryDish(dbcon, pid);
+			product = DBUtils.queryDish(dbcon, pid);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		request.setAttribute("detailDish", dish);
-		session.setAttribute("detail", dish);
+		System.out.println(product.getName());
+		
+		request.setAttribute("detailDish", product);
+		session.setAttribute("detail", product);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/Detail.jsp");
         dispatcher.forward(request, response);
 		

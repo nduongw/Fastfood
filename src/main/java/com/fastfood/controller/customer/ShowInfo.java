@@ -9,10 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.sql.Connection;
-
 import com.fastfood.entity.User;
-import com.fastfood.model.ConnectDatabase;
 
 @WebServlet(urlPatterns = {"/show-info"})
 public class ShowInfo extends HttpServlet {

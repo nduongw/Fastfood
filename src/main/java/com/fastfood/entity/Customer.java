@@ -3,17 +3,27 @@ package com.fastfood.entity;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.fastfood.utils.DBUtils;
 
 import jakarta.servlet.http.HttpSession;
 
-public class Customer extends User implements Greeting{
+public class Customer extends User{
 	private int point;
 	private int membership;
-	private List<Dish> myFavorites;
+	private List<Product> myFavorites;
+	private List<Receipt> receipts;
 	
+	public List<Receipt> getReceipts() {
+		return receipts;
+	}
+
+	public void setReceipts(List<Receipt> receipts) {
+		this.receipts = receipts;
+	}
+
 	public int getPoint() {
 		return point;
 	}
@@ -30,6 +40,11 @@ public class Customer extends User implements Greeting{
 		this.membership = membership;
 	}
 
+	public Customer(int user_id) {
+		super(user_id);
+		// TODO Auto-generated constructor stub
+	}
+
 	public Customer(int point, int membership) {
 		super();
 		this.point = point;
@@ -39,25 +54,64 @@ public class Customer extends User implements Greeting{
 	public Customer() {
 		super();
 	}
+	
 
-	@Override
-	public String greeting() {
-		return (String) "Hello" + this.getName() + "- Membership: " + this.getMembership();
+	public Customer(int user_id, String account, String password, String email, String name, String address,
+			String phone, int is_admin) {
+		super(user_id, account, password, email, name, address, phone, is_admin);
+		// TODO Auto-generated constructor stub
 	}
 
-	public List<Dish> getMyFavorites() {
+	public Customer(String account, String email, String name, String address, String phone) {
+		super(account, email, name, address, phone);
+		// TODO Auto-generated constructor stub
+	}
+
+	public Customer(int point, int membership, List<Product> myFavorites, List<Receipt> receipts) {
+		super();
+		this.point = point;
+		this.membership = membership;
+		this.myFavorites = myFavorites;
+		this.receipts = receipts;
+	}
+
+	public Customer(int user_id, String account, String password, String email, String name, String address,
+			Date birthday_date, String phone) {
+		super(user_id, account, password, email, name, address, birthday_date, phone);
+		// TODO Auto-generated constructor stub
+	}
+
+	public Customer(int user_id, String account, String email, String name, String address, String phone, int is_admin,
+			int total_spent) {
+		super(user_id, account, email, name, address, phone, is_admin, total_spent);
+		// TODO Auto-generated constructor stub
+	}
+
+	public Customer(int user_id, String account, String password, String email, String name, String address,
+			String phone, int is_admin, int point, int membership) {
+		super(user_id, account, password, email, name, address, phone, is_admin);
+		this.point = point;
+		this.membership = membership;
+	}
+
+	public List<Product> getMyFavorites() {
 		return myFavorites;
 	}
 
-	public void setMyFavorites(List<Dish> myFavorites) {
+	public void setMyFavorites(List<Product> myFavorites) {
 		this.myFavorites = myFavorites;
 	}
 	
 	public void likeProduct(Connection connection, int id, User cUser) {
 		try {	
 			this.myFavorites = DBUtils.getFavourites(connection, cUser.getUser_id());
-			for (Dish f : this.myFavorites) {
-				if (f.getDish_id() != id) {
+			
+			if(this.myFavorites.size() == 0) {
+				DBUtils.addFavourite(connection, cUser.getUser_id(), id);
+			}
+			
+			for (Product f : this.myFavorites) {
+				if (f.getId() != id) {
 					DBUtils.addFavourite(connection, cUser.getUser_id(), id);						
 				}
 			}
@@ -85,7 +139,7 @@ public class Customer extends User implements Greeting{
 			Boolean exist = false;
 			
 			for (Cart c: cartList) {
-				if (c.getDish_id() == id) {
+				if (c.getId() == id) {
 					exist = true;
 					break;
 				} 
@@ -104,7 +158,7 @@ public class Customer extends User implements Greeting{
 		
 		
 		for (Cart cart: cart_List) {
-			if(cart.getDish_id() == id) {
+			if(cart.getId() == id) {
 				if (action.equals("dec")) {
 					cart.setQuantity(cart.getQuantity() - 1);
 				} else if (action.equals("inc")) {
@@ -118,9 +172,9 @@ public class Customer extends User implements Greeting{
 	
 	public void removeCart(ArrayList<Cart> cart_List, int id) {
 		for (Cart cart: cart_List) {
-			if (cart.getDish_id() == id) {
+			if (cart.getId() == id) {
 				cart_List.remove(cart);
-				System.out.println("Removed cart " + cart.getDish_id() + "successful");
+				System.out.println("Removed cart " + cart.getId() + "successful");
 				break;
 			}
 		}
@@ -145,17 +199,25 @@ public class Customer extends User implements Greeting{
 		return totalPrice;
 	}
 	
-	public void search(List<Dish> dishList, List<Category> categories, Connection conn, String txtSearch) {
+	public List<Product> search(List<Category> categories, Connection conn, String txtSearch) {
+		List<Product> dishList = null;
 		try {
 			dishList = DBUtils.searchByName(conn, txtSearch);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		
 		try {
 			categories = DBUtils.getAllCategories(conn);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return dishList;
+	}
+
+	@Override
+	public void viewDetail() {
+		System.out.println("Your membership level" + this.membership);
 	}
 }

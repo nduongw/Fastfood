@@ -16,8 +16,6 @@ public class CheckoutSuccess extends HttpServlet {
         super();
 
     }
-
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/CheckOutSuccess.jsp");
 		
@@ -25,7 +23,6 @@ public class CheckoutSuccess extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

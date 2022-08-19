@@ -51,11 +51,11 @@ public class CheckOut extends HttpServlet {
 			
 			Receipt receipt = new Receipt();
 			
-			receipt.setUser_id(cUser.getUser_id());
+			receipt.setId(cUser.getUser_id());
 			receipt.setPayment(1);
 			receipt.setTotal(totalPrice);
 			receipt.setStatus(1);
-			receipt.setCartList(products);
+			receipt.setProducts(products);
 			
 			System.out.println(totalPrice);
 			

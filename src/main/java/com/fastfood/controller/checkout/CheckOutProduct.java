@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fastfood.entity.Cart;
-import com.fastfood.entity.Dish;
+import com.fastfood.entity.Product;
 import com.fastfood.entity.Receipt;
 import com.fastfood.entity.User;
 import com.fastfood.model.ConnectDatabase;
@@ -39,15 +39,14 @@ public class CheckOutProduct extends HttpServlet {
 		System.out.println(id);
 //		System.out.println(quantity);
 		User cUser = (User) session.getAttribute("userAcc");
-		Dish dish = new Dish();
+		Product dish = new Product();
 		
 		try {
 			dish = DBUtils.queryDish(conn, id);
 			System.out.println(dish.getName());
 			System.out.println(dish.getPrice());
-			System.out.println(dish.getDish_id());
+			System.out.println(dish.getId());
 		} catch (NumberFormatException | SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -55,27 +54,27 @@ public class CheckOutProduct extends HttpServlet {
 		List<Cart> products = new ArrayList<Cart>();
 		Cart cart = new Cart();
 		
-		cart.setDish_id(id);
+		cart.setId(id);
 		cart.setPrice(dish.getPrice());
 		cart.setQuantity(quantity);
 		cart.setName(dish.getName());
 		cart.setDescription(dish.getDescription());
 		
-		System.out.println(cart.getDish_id());
+		System.out.println(cart.getId());
 		
 		products.add(cart);
 		
-		for (Cart cart2: products) {
-			System.out.println(cart.getDish_id());
+		for (@SuppressWarnings("unused") Cart cart2: products) {
+			System.out.println(cart.getId());
 		}
 		
 		Receipt receipt = new Receipt();
 		
-		receipt.setUser_id(cUser.getUser_id());
+		receipt.setId(cUser.getUser_id());
 		receipt.setPayment(1);
 		receipt.setTotal(totalPrice);
 		receipt.setStatus(1);
-		receipt.setCartList(products);
+		receipt.setProducts(products);
 		
 		System.out.println("---------------------");
 		

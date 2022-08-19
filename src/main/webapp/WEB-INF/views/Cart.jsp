@@ -42,15 +42,15 @@
 						<td>${o.price}</td>
 						<td >
 							<form action="order-now" method="post" class="form-inline">
-							<input type="hidden" name="id" value="${o.getDish_id()}" class="form-input">
+							<input type="hidden" name="id" value="${o.getId()}" class="form-input">
 								<div style="display: flex; align-items: center; gap: 5px;" >
-									<a class="btn bnt-sm btn-incre" href="quantity-inc-dec?action=inc&id=${o.getDish_id()}"><ion-icon name="add"></ion-icon></a> 
+									<a class="btn bnt-sm btn-incre" href="quantity-inc-dec?action=inc&id=${o.getId()}"><ion-icon name="add"></ion-icon></a> 
 									<input style="padding: 5px; width: 50px;" type="text" name="quantity" class="form-control"  value="${o.quantity}" readonly> 
-									<a class="btn btn-sm btn-decre" href="quantity-inc-dec?action=dec&id=${o.getDish_id()}"><ion-icon name="remove"></ion-icon></a>
+									<a class="btn btn-sm btn-decre" href="quantity-inc-dec?action=dec&id=${o.getId()}"><ion-icon name="remove"></ion-icon></a>
 								</div>
 							</form>
 						</td>
-						<td><a href="remove-from-cart?id=${o.getDish_id()}" class="btn btn-sm btn-danger"><ion-icon name="trash-bin" class=”meal-icon” style=”width: 40px; height: 40px; color: #f03e3e;”></ion-icon></a></td>
+						<td><a href="remove-from-cart?id=${o.getId()}" class="btn btn-sm btn-danger"><ion-icon name="trash-bin" class=”meal-icon” style=”width: 40px; height: 40px; color: #f03e3e;”></ion-icon></a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

@@ -32,7 +32,7 @@
 					<tr>
 						<td><img alt="" src="${o.getImage()}" style="width: 100px; height: auto;"></td>
 						<td>${o.getName()}</td>
-						<td><a href="remove-from-favourite?id=${o.getDish_id()}" ><ion-icon name="trash-bin" class=”meal-icon” style= ”width: 65px; height: 65px; background-color: #f03e3e !important; ”></ion-icon></a></td>
+						<td><a href="remove-from-favourite?id=${o.getId()}" ><ion-icon name="trash-bin" class=”meal-icon” style= ”width: 65px; height: 65px; background-color: #f03e3e !important; ”></ion-icon></a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

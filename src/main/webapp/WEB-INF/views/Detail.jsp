@@ -70,14 +70,14 @@
               consumer well-being through a healthy diet.
             </li>
             <li class="meal-info">
-              <span class="meal-attribute-info">Category: ${detailDish.category_id}</span>
+              <span class="meal-attribute-info">Category: ${detailDish.getClass()}</span>
               
             </li>
            
           </ul>
 		<div style="display: flex; justify-content: space-around;  ">
-          <a href="add-to-cart?id=${detailDish.dish_id}"  class="btn btn--small">Add to cart</a>
-          <a href="add-to-favourite?id=${detailDish.dish_id}"  class="btn btn--small">Add to favourite</a>
+          <a href="add-to-cart?id=${detailDish.id}"  class="btn btn--small">Add to cart</a>
+          <a href="add-to-favourite?id=${detailDish.id}"  class="btn btn--small">Add to favourite</a>
           </div>
           
         </div>

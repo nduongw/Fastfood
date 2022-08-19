@@ -14,8 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fastfood.entity.Dish;
-import com.fastfood.entity.Favourite;
+import com.fastfood.entity.Product;
 import com.fastfood.entity.User;
 import com.fastfood.model.ConnectDatabase;
 import com.fastfood.utils.DBUtils;
@@ -33,7 +32,7 @@ public class ShowFavourite extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		User cUser = (User)session.getAttribute("userAcc");
-		List<Dish> myFavourites = new ArrayList<Dish>();
+		List<Product> myFavourites = new ArrayList<Product>();
 		
 		if (cUser == null) {
 			String direction = "WEB-INF/views/login.jsp";

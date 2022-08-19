@@ -12,8 +12,6 @@ import java.sql.SQLException;
 
 import com.fastfood.entity.Admin;
 import com.fastfood.entity.Customer;
-import com.fastfood.entity.Dish;
-import com.fastfood.entity.User;
 import com.fastfood.model.ConnectDatabase;
 
 @WebServlet(urlPatterns = {"/edit-account"})

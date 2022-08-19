@@ -5,35 +5,33 @@ import java.util.List;
 
 public class Receipt {
 	private int id;
-	private int user_id;
+	private final Customer customer;
 	private int status;
 	private Date time;
 	private int payment;
 	private int total;
-	private List<Cart> cartList;
+	private List<Cart> products;
 	
-	public Receipt(int id, int user_id, int status, Date time, int payment, int total, List<Cart> cartList) {
+	public Receipt(int id, int user_id, int status, Date time, int payment, int total, List<Cart> products) {
 		super();
 		this.id = id;
-		this.user_id = user_id;
+		customer = new Customer(user_id);
 		this.status = status;
 		this.time = time;
 		this.payment = payment;
 		this.total = total;
-		this.cartList = cartList;
+		this.products = products;
 	}
 
 	public Receipt(int id, int user_id, int status, Date time, int payment, int total) {
 		super();
 		this.id = id;
-		this.user_id = user_id;
+		customer = new Customer(user_id);
 		this.status = status;
 		this.time = time;
 		this.payment = payment;
 		this.total = total;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -44,11 +42,7 @@ public class Receipt {
 	}
 	
 	public int getUser_id() {
-		return user_id;
-	}
-	
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+		return customer.getUser_id();
 	}
 	
 	public int getStatus() {
@@ -83,17 +77,21 @@ public class Receipt {
 		this.total = total;
 	}
 	
-	public List<Cart> getCartList() {
-		return this.cartList;
+	public Customer getCustomer() {
+		return customer;
 	}
-	
-	public void setCartList(List<Cart> cartList) {
-		this.cartList = cartList;
+
+	public List<Cart> getProducts() {
+		return products;
 	}
-	
+
+	public void setProducts(List<Cart> products) {
+		this.products = products;
+	}
+
 	public Receipt() {
 		super();
+		this.customer = new Customer();
 	}
-	
 	
 }

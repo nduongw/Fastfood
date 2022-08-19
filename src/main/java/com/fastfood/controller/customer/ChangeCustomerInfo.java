@@ -1,6 +1,5 @@
 package com.fastfood.controller.customer;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,7 +11,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import com.fastfood.entity.User;
+import com.fastfood.entity.Customer;
 import com.fastfood.model.ConnectDatabase;
 import com.fastfood.utils.DBUtils;
 
@@ -37,24 +36,20 @@ public class ChangeCustomerInfo extends HttpServlet {
 		System.out.println(address);
 		System.out.println(phone);
 		
+		Customer newUser = new Customer(username, email, name, address, phone);
+		
 		HttpSession session = request.getSession();
 		Connection dbcon = ConnectDatabase.getJDBCConnection();
-		User cUser = (User)session.getAttribute("userAcc");
+		Customer cUser = (Customer)session.getAttribute("userAcc");
 		
 		try {
 			DBUtils.changeCustomerInfo(dbcon, username, email, name, address, phone, cUser.getUser_id());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		cUser.setAccount(username);
-		cUser.setAddress(address);
-		cUser.setEmail(email);
-		cUser.setPhone(phone);
-		cUser.setName(name);
-		
-		session.setAttribute("userAcc", cUser);
+		session.removeAttribute("userAcc");		
+		session.setAttribute("userAcc", newUser);
 		response.sendRedirect("showDish");
 	}
 

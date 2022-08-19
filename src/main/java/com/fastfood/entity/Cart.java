@@ -1,6 +1,6 @@
 package com.fastfood.entity;
 
-public class Cart extends Dish{
+public class Cart extends Product{
 	private int quantity;
 
 	public int getQuantity() {

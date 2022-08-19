@@ -2,12 +2,13 @@ package com.fastfood.entity;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 
 import com.fastfood.controller.admin.removeReceipt;
 import com.fastfood.utils.DBUtils;
 import com.mysql.cj.xdevapi.DatabaseObject.DbObjectType;
 
-public class Admin extends User implements Greeting{
+public class Admin extends User{
 	private int access;
 
 	public int getAccess() {
@@ -22,14 +23,27 @@ public class Admin extends User implements Greeting{
 		
 	}
 	
+	public Admin(int user_id, String account, String password, String email, String name, String address,
+			Date birthday_date, String phone) {
+		super(user_id, account, password, email, name, address, birthday_date, phone);
+		// TODO Auto-generated constructor stub
+	}
+
+	public Admin(int user_id, String account, String email, String name, String address, String phone, int is_admin,
+			int total_spent) {
+		super(user_id, account, email, name, address, phone, is_admin, total_spent);
+		// TODO Auto-generated constructor stub
+	}
+
+	public Admin(int user_id, String account, String password, String email, String name, String address, String phone,
+			int is_admin) {
+		super(user_id, account, password, email, name, address, phone, is_admin);
+		// TODO Auto-generated constructor stub
+	}
+
 	public Admin(int access) {
 		super();
 		this.access = access;
-	}
-	
-	@Override
-	public String greeting() {
-		return (String) "Hello" + this.getName() + "Access level: " + this.getAccess();
 	}
 	
 	public void addDish(Connection connection, String name, String category, String description, int price) {
@@ -105,5 +119,10 @@ public class Admin extends User implements Greeting{
 	
 	public void changeStatus(Connection connection, int id) throws SQLException {
 		DBUtils.changeStatus(connection, id);
+	}
+
+	@Override
+	public void viewDetail() {
+		System.out.println("Your admin level is" + this.access);
 	}
 }

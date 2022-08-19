@@ -115,23 +115,18 @@ border:none; margin-top: 5px"></input>
         
         <div class="f-sort">
           <span class="sort-by">Sort by:</span>
-          <select class="form-control1" name="sort_option">
-            <option value="2">Price from low to high</option>
-            <option value="3">Price from high to low</option>
-          </select>
+          <form action="changeDisplay">
+	          <select class="form-control1" name="sort_option">
+	            <option value="2">Price from low to high</option>
+	            <option value="3">Price from high to low</option>
+	          </select>
+	      </form>    
         </div>
       </div>
-                
-               
-
-                
                     <div class="container grid grid--4-cols margin-bottom-md" id="card-container">
                         <c:forEach items="${dishL}" var="o">
                             <div class="meal" id="meal" style="line-height: 1.2;">
-                                
-                                    
-                                    
-                              <a href="detail?pid=${o.dish_id}"> 
+                              <a href="detail?pid=${o.id}"> 
                               <img
 					            src="${o.image}"
 					            style="width: fixed; height: 45%"
@@ -141,7 +136,7 @@ border:none; margin-top: 5px"></input>
           						</a> 
 					          <div class="meal-content" id="meal-content">
 					            <div class="meal-tags">
-					              <span class="tag tag--${o.category}">${o.category}</span>
+					              <span class="tag tag--${o.getClass()}">${o.getClass()}</span>
 					            </div>
 					            <p class="meal-title" id = "meal-title" style=" height: 55px;">${o.name}</p>
 					            <ul class="meal-attributes">
@@ -151,21 +146,21 @@ border:none; margin-top: 5px"></input>
 					              </li>
 					              <li class="meal-attribute">
 					                <ion-icon class="meal-icon" name="remove-outline"></ion-icon>
-					                <span>20% <strong>Discount</strong></span>
+					                <span>10% <strong>Discount</strong></span>
 					              </li>
 					              
 					              <div class="meal-price">
 					              	<c:if test="${sessionScope.userAcc.is_admin == 0}">
-					                <a href="add-to-favourite?id=${o.dish_id}"><ion-icon id="heart" class="meal-icon" name="heart"></ion-icon></a>
-					                <a href="add-to-cart?id=${o.dish_id}" class="btn btn--small">Add to cart</a>
+					                <a href="add-to-favourite?id=${o.id}"><ion-icon id="heart" class="meal-icon" name="heart"></ion-icon></a>
+					                <a href="add-to-cart?id=${o.id}" class="btn btn--small">Add to cart</a>
 					                </c:if>
 					                <div style="display: flex; gap: 40px;">
 						                <c:if test="${sessionScope.userAcc.is_admin > 1}">
-						                <a href="edit?id=${o.dish_id}" class="btn btn--small" style="width:100px;">Edit</a>
+						                <a href="edit?id=${o.id}" class="btn btn--small" style="width:100px;">Edit</a>
 						                </c:if>
 						 
 						                <c:if test="${sessionScope.userAcc.is_admin > 2}">
-						                <a href="delete?id=${o.dish_id}" class="btn btn--small" style="width:100px; background-color: #f03e3e">Remove</a>
+						                <a href="delete?id=${o.id}" class="btn btn--small" style="width:100px; background-color: #f03e3e">Remove</a>
 						                </c:if>
 					                </div>
 					              </div>

@@ -1,6 +1,5 @@
 package com.fastfood.controller.cart;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,7 +24,7 @@ public class AddToCart extends HttpServlet {
 		ArrayList<Cart>cartList = new ArrayList<Cart>();
 		
 		Cart cart = new Cart();
-		cart.setDish_id(id);
+		cart.setId(id);
 		cart.setQuantity(1);
 		
 		

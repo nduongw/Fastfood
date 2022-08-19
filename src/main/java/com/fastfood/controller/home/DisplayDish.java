@@ -16,7 +16,7 @@ import java.util.List;
 
 import com.fastfood.entity.Cart;
 import com.fastfood.entity.Category;
-import com.fastfood.entity.Dish;
+import com.fastfood.entity.Product;
 import com.fastfood.model.ConnectDatabase;
 import com.fastfood.utils.DBUtils;
 
@@ -35,18 +35,14 @@ public class DisplayDish extends HttpServlet {
 		String sortOption = request.getParameter("sort_option");
 		System.out.println("sort option: " + sortOption);
 		
-//		String order = (String) request.getAttribute("high");
-//		System.out.println(order);
-		
 		@SuppressWarnings("unchecked")
 		ArrayList<Cart> cart_List = (ArrayList<Cart>)session.getAttribute("cartInfo");
-		List<Dish> dishList = null;
+		List<Product> dishList = null;
 		List<Category> categories = null;
 		
 		if (cart_List != null) {
 			cartSize = cart_List.size();
 		}
-		
 		
 		try {
 			dishList = DBUtils.queryDish(conn);
@@ -58,14 +54,6 @@ public class DisplayDish extends HttpServlet {
 			categories = DBUtils.getAllCategories(conn);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
-		for (Dish dish: dishList) {
-			for (Category cate: categories) {
-				if (dish.getCategory_id() == cate.getId()) {
-					dish.setCategory(cate.getCateString());
-				}
-			}
 		}
 		
 //		cartSize = 4;

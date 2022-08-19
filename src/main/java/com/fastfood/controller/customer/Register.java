@@ -8,11 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
-
-import com.fastfood.entity.User;
+import com.fastfood.entity.Customer;
 import com.fastfood.model.ConnectDatabase;
-import com.fastfood.utils.DBUtils;
 
 @WebServlet(urlPatterns = {"/register"})
 public class Register extends HttpServlet {
@@ -37,9 +34,9 @@ public class Register extends HttpServlet {
 		
 		Connection dbcon = ConnectDatabase.getJDBCConnection();
 
-		User user = new User();
+		Customer customer = new Customer();
 		
-		user.register(dbcon, username, password, email, name, phone);
+		customer.register(dbcon, username, password, email, name, phone);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/login.jsp");
         dispatcher.forward(request, response);

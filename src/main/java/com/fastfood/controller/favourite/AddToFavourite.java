@@ -9,15 +9,9 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
-
 import com.fastfood.entity.Customer;
-import com.fastfood.entity.Dish;
-import com.fastfood.entity.Favourite;
 import com.fastfood.entity.User;
 import com.fastfood.model.ConnectDatabase;
-import com.fastfood.utils.DBUtils;
 
 @WebServlet(urlPatterns = {"/add-to-favourite"})
 public class AddToFavourite extends HttpServlet {
@@ -30,9 +24,9 @@ public class AddToFavourite extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
+		System.out.println(id);
 		HttpSession session = request.getSession();
 		Connection dbcon = ConnectDatabase.getJDBCConnection();
-		List<Dish> myFavourites = null;
 		Customer customer = new Customer();
 		
 		User cUser = (User)session.getAttribute("userAcc");
