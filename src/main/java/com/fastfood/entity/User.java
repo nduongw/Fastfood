@@ -24,6 +24,7 @@ public class User {
 	private Date birthday_date;
 	private String phone;
 	private int is_admin;
+	private int total_spent;
 	
 	
 	public User () {
@@ -42,6 +43,20 @@ public class User {
 		this.phone = phone;
 	}
 	
+	
+	public User(int user_id, String account, String email, String name, String address,
+			String phone, int is_admin, int total_spent) {
+		super();
+		this.user_id = user_id;
+		this.account = account;
+		this.email = email;
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+		this.is_admin = is_admin;
+		this.total_spent = total_spent;
+	}
+
 	public User(int user_id) {
 		super();
 		this.user_id = user_id;
@@ -119,7 +134,14 @@ public class User {
 		this.is_admin = is_admin;
 	}
 	
-	
+	public int getTotal_spent() {
+		return total_spent;
+	}
+
+	public void setTotal_spent(int total_spent) {
+		this.total_spent = total_spent;
+	}
+
 	public int login(Connection dbcon, String userName, String passwordString, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			Customer cUser = DBUtils.findUser(dbcon, userName, passwordString);

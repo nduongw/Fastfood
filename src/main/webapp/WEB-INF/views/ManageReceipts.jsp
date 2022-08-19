@@ -1,11 +1,12 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Show Cart</title>
+<title>Manage Receipts</title>
 <script
       type="module"
       src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"
@@ -21,51 +22,45 @@
     ></script>
 </head>
 <body>
-	<main>
+<main>
 		
 		<div style="display: flex; justify-content: center">
 		<table class="table table-light">
 			<thead>
 				<tr>
-					<th >Image</th>
-					<th >Name</th>
-					<th >Price</th>
-					<th >Buy Now</th>
-					<th >Cancel</th>
+					<th >Receipt ID</th>
+					<th >User ID</th>
+					<th >Status</th>
+					<th >Time</th>
+					<th >Payment method</th>
+					<th >Total</th>
+					<th >Change Status</th>
+					<th >Remove</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${cartInfo}" var="o">
+				<c:forEach items="${receiptsInfo}" var="o">
 					<tr>
-						<td><img src="${o.image}" width="100" height="100"></td>
-						<td>${o.name}</td>
-						<td>${o.price}</td>
-						<td >
-							<form action="order-now" method="post" class="form-inline">
-							<input type="hidden" name="id" value="${o.getDish_id()}" class="form-input">
-								<div style="display: flex; align-items: center; gap: 5px;" >
-									<a class="btn bnt-sm btn-incre" href="quantity-inc-dec?action=inc&id=${o.getDish_id()}"><ion-icon name="add"></ion-icon></a> 
-									<input style="padding: 5px; width: 50px;" type="text" name="quantity" class="form-control"  value="${o.quantity}" readonly> 
-									<a class="btn btn-sm btn-decre" href="quantity-inc-dec?action=dec&id=${o.getDish_id()}"><ion-icon name="remove"></ion-icon></a>
-								</div>
-							</form>
-						</td>
-						<td><a href="remove-from-cart?id=${o.getDish_id()}" class="btn btn-sm btn-danger"><ion-icon name="trash-bin" class=”meal-icon” style=”width: 40px; height: 40px; color: #f03e3e;”></ion-icon></a></td>
+						<td>${o.id}</td>
+						<td>${o.user_id}</td>
+						<td>${o.status}</td>
+						<td>${o.time}</td>
+						<td>${o.payment}</td>
+						<td>${o.total}</td>
+						<td><a href="change-status?id=${o.getId()}" class="btn btn-sm btn-danger"><ion-icon name="trash-bin" class=”meal-icon” style=”width: 40px; height: 40px; color: #f03e3e;”></ion-icon></a></td>
+						<td><a href="remove-receipt?id=${o.getId()}" class="btn btn-sm btn-danger"><ion-icon name="trash-bin" class=”meal-icon” style=”width: 40px; height: 40px; color: #f03e3e;”></ion-icon></a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		
 	</div>
-	<div style="display: flex; justify-content: center; margin-top: 50px; color: #fff; padding-right: 700px; font-size: 30px;"><h3>Total Price: ${totalPrice} VND</h3> </div>
-	<div style="display: flex; justify-content: center">
-         <a class="button" href="checkout">Check Out</a></div>
-     <div style="display: flex; justify-content: center; margin-top: 20px">
          <a href="showDish" style="color: #fff; font-size: 1.5rem">Back</a></div>
          
 	
 	</main>
 </body>
+
 <style>
     /*
     SPACING SYSTEM (px)

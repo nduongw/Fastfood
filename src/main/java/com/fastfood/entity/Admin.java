@@ -3,7 +3,9 @@ package com.fastfood.entity;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.fastfood.controller.admin.removeReceipt;
 import com.fastfood.utils.DBUtils;
+import com.mysql.cj.xdevapi.DatabaseObject.DbObjectType;
 
 public class Admin extends User implements Greeting{
 	private int access;
@@ -69,6 +71,39 @@ public class Admin extends User implements Greeting{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void removeAccount(Connection connection, int id) throws SQLException {
+		int result = DBUtils.removeAccount(connection, id);
 		
+		if (result == 0) {
+			System.out.println("Cant delete");
+		} else {
+			System.out.println("Delete successfully");
+		}
+	}
+	
+	public void removeReceipt(Connection connection, int id) throws SQLException {
+		int result = DBUtils.removeReceipt(connection, id);
+		
+		if (result == 0) {
+			System.out.println("Cant delete");
+		} else {
+			System.out.println("Delete successfully");
+		}
+	}
+	
+	public void editAccount(Connection connection, int id, Customer customer) throws SQLException {
+		customer = DBUtils.findUser(connection, id);
+		
+		if (customer == null) {
+			System.out.println("Cant found this customer");
+		} else {
+			System.out.println("Found!");
+		}
+	}
+	
+	public void changeStatus(Connection connection, int id) throws SQLException {
+		DBUtils.changeStatus(connection, id);
 	}
 }

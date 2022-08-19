@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="4.0">
   <servlet>
     <description></description>
     <display-name>Home</display-name>
@@ -288,5 +288,75 @@
   <servlet-mapping>
     <servlet-name>editDish</servlet-name>
     <url-pattern>/editDish</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>manageAccount</display-name>
+    <servlet-name>manageAccount</servlet-name>
+    <servlet-class>com.fastfood.controller.admin.manageAccount</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>manageAccount</servlet-name>
+    <url-pattern>/manageAccount</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>removeAccount</display-name>
+    <servlet-name>removeAccount</servlet-name>
+    <servlet-class>com.fastfood.controller.admin.removeAccount</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>removeAccount</servlet-name>
+    <url-pattern>/removeAccount</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>addAccount</display-name>
+    <servlet-name>addAccount</servlet-name>
+    <servlet-class>com.fastfood.controller.admin.addAccount</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addAccount</servlet-name>
+    <url-pattern>/addAccount</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>editAccount</display-name>
+    <servlet-name>editAccount</servlet-name>
+    <servlet-class>com.fastfood.controller.admin.editAccount</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>editAccount</servlet-name>
+    <url-pattern>/editAccount</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>manageReceipt</display-name>
+    <servlet-name>manageReceipt</servlet-name>
+    <servlet-class>com.fastfood.controller.admin.manageReceipt</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>manageReceipt</servlet-name>
+    <url-pattern>/manageReceipt</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>removeReceipt</display-name>
+    <servlet-name>removeReceipt</servlet-name>
+    <servlet-class>com.fastfood.controller.admin.removeReceipt</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>removeReceipt</servlet-name>
+    <url-pattern>/removeReceipt</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>changeStatus</display-name>
+    <servlet-name>changeStatus</servlet-name>
+    <servlet-class>com.fastfood.controller.admin.changeStatus</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>changeStatus</servlet-name>
+    <url-pattern>/changeStatus</url-pattern>
   </servlet-mapping>
 </web-app>

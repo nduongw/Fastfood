@@ -116,9 +116,6 @@
         </style>
     </head>
     <body>
-        
-                  
-                
             <div class="content-container">
                 <nav class="nav-bar">
                     <a href="displayDish" class="link-trang-chu">

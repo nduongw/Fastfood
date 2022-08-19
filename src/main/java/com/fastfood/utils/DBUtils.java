@@ -1,12 +1,15 @@
 package com.fastfood.utils;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jdt.internal.compiler.IDebugRequestor;
 import org.eclipse.jdt.internal.compiler.ast.ThisReference;
 
 import com.fastfood.entity.Cart;
@@ -503,6 +506,106 @@ public class DBUtils {
 		return 1;
 	}
 	
+	public static List<User> getAllUsers(Connection connection) throws SQLException {
+		String sql = "SELECT * FROM users";
+		
+		PreparedStatement pstm = connection.prepareStatement(sql);
+
+		ResultSet rs = pstm.executeQuery();
+
+		List<User> userList = new ArrayList<User>();
+
+		while (rs.next()) {
+			int id = rs.getInt("user_id");
+			String account = rs.getString("account");
+			String email = rs.getString("email");
+			int point = rs.getInt("point");
+			String name = rs.getString("name");
+			String phone = rs.getString("phone");
+			String address = rs.getString("address");
+			int membership = rs.getInt("membership");
+			int admin = rs.getInt("is_admin");
+
+			User user = new User(id, account, email, name, address, phone, admin, point);
+			userList.add(user);
+		}
+
+		return userList;
+	}
+	
+	public static int removeAccount(Connection connection, int id) throws SQLException {
+		String sql = "DELETE FROM users WHERE user_id = ?";
+		String sql2 = "DELETE FROM favorites WHERE user_id = ?";
+		String sql3 = "SELECT receipts_dishes.receipt_id \n"
+				+ "FROM receipts_dishes INNER JOIN receipts \n"
+				+ "ON receipts.receipt_id = receipts_dishes.receipt_id\n"
+				+ "WHERE receipts.user_id = 6 ";
+		
+		PreparedStatement pstm = connection.prepareStatement(sql3);
+		pstm.setInt(1, id);
+		pstm.executeUpdate();
+//		
+		pstm = connection.prepareStatement(sql2);
+		pstm.setInt(1, id);
+		pstm.executeUpdate();
+		
+		pstm = connection.prepareStatement(sql);
+		pstm.setInt(1, id);
+		pstm.executeUpdate();
+		
+		return 1;
+	}
+	
+	public static List<Receipt> getAllReceipts(Connection connection) throws SQLException {
+		String sql = "SELECT * FROM receipts";
+		
+		PreparedStatement pstm = connection.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		
+		List<Receipt> receipts = new ArrayList<Receipt>();
+		
+		while(rs.next()) {
+			int receipt_id = rs.getInt("receipt_id");
+			int user_id = rs.getInt("user_id");
+			int status = rs.getInt("status");
+			Date time = rs.getDate(4);
+			int payment = rs.getInt("payment");
+			int total_payment = rs.getInt("total_payment");
+
+			Receipt receipt = new Receipt(receipt_id, user_id, status, time, payment, total_payment);
+			receipts.add(receipt);
+		}
+		
+		return receipts;
+	}
+	
+	public static void changeStatus(Connection connection, int id) throws SQLException {
+		String sql = "UPDATE receipts\n"
+				+ "SET status = 1\n"
+				+ "WHERE receipt_id = ?";
+		
+		PreparedStatement pstm = connection.prepareStatement(sql);
+		
+		pstm.setInt(1, id);
+		
+		pstm.executeUpdate();
+	}
+	
+	public static int removeReceipt(Connection connection, int id) throws SQLException {
+		String sql = "DELETE FROM receipts_dishes WHERE receipt_id = ?";
+		String sql2 = "DELETE FROM receipts WHERE receipt_id = ?";
+		
+		
+		PreparedStatement pstm = connection.prepareStatement(sql);
+		pstm.setInt(1, id);
+		pstm.executeUpdate();
+//		
+		pstm = connection.prepareStatement(sql2);
+		pstm.setInt(1, id);
+		pstm.executeUpdate();
+		return 1;
+	}
+	
 	public static void main(String args[]) throws SQLException {
 		DBUtils dbUtils = new DBUtils();
 		Connection conn = ConnectDatabase.getJDBCConnection();
@@ -528,10 +631,16 @@ public class DBUtils {
 //		for (Favourite favourite : myFavourites) {
 //			System.out.println(favourite.getDishIdList());
 //		}
+//		System.out.println(conn);
+//		List<Dish> dishs = dbUtils.queryDish(conn);
+//		for (Dish dish: dishs) {
+//			System.out.println(dish.getName());
+//		}
+		
 		System.out.println(conn);
-		List<Dish> dishs = dbUtils.queryDish(conn);
-		for (Dish dish: dishs) {
-			System.out.println(dish.getName());
+		List<User> users = dbUtils.getAllUsers(conn);
+		for (User user: users) {
+			System.out.println(user.getName());
 		}
 	}
 	

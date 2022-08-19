@@ -9,7 +9,7 @@ public class ConnectDatabase {
 
 		String urlString = "jdbc:mysql://localhost:3306/fastfood";
 		String userName = "root";
-		String password = "hs123478";
+		String password = "Duongsuper123*";
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

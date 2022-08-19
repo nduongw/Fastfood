@@ -12,6 +12,29 @@ public class Receipt {
 	private int total;
 	private List<Cart> cartList;
 	
+	public Receipt(int id, int user_id, int status, Date time, int payment, int total, List<Cart> cartList) {
+		super();
+		this.id = id;
+		this.user_id = user_id;
+		this.status = status;
+		this.time = time;
+		this.payment = payment;
+		this.total = total;
+		this.cartList = cartList;
+	}
+
+	public Receipt(int id, int user_id, int status, Date time, int payment, int total) {
+		super();
+		this.id = id;
+		this.user_id = user_id;
+		this.status = status;
+		this.time = time;
+		this.payment = payment;
+		this.total = total;
+	}
+
+
+
 	public int getId() {
 		return id;
 	}
