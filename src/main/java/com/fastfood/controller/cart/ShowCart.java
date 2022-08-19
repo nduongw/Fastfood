@@ -26,7 +26,13 @@ public class ShowCart extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Connection conn = ConnectDatabase.getJDBCConnection();
+		Connection conn;
+		try {
+			conn = ConnectDatabase.getJDBCConnection();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		HttpSession session = request.getSession();
 		
 		@SuppressWarnings("unchecked")

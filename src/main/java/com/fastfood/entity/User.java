@@ -137,7 +137,7 @@ public abstract class User {
                 System.out.println("Login: " + userName);
         		System.out.println("Login: " +passwordString);
         		System.out.println(cUser.getName());
-        		
+        		System.out.println(cUser.getIs_admin());
 			}
 			
 		} catch (SQLException e) {

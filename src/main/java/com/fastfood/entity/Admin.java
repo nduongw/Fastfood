@@ -74,7 +74,7 @@ public class Admin extends User{
 		}
 	}
 	
-	public void editDish(Connection connection, int id, Dish result) {
+	public void editDish(Connection connection, int id, Product result) {
 		try {
 			result = DBUtils.queryDish(connection, id);
 			if (result == null) {

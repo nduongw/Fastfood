@@ -174,6 +174,56 @@ public class DBUtils {
 		return productList;
 	}
 	
+	public static List<Dish> queryDishLow2High(Connection connection) throws SQLException {
+		String sql = "SELECT * FROM dishes "
+					+ "ORDER BY price";
+		
+		PreparedStatement pstm = connection.prepareStatement(sql);
+		
+		ResultSet rs = pstm.executeQuery();
+		
+		List<Dish> dishList = new ArrayList<Dish>();
+		
+		while (rs.next()) {
+			int dish_id = rs.getInt("dish_id");
+			String name = rs.getString("name");
+			int category_id = rs.getInt("category_id");
+			String description = rs.getString("description");
+			int price = rs.getInt("price");
+			String image = rs.getString("image");
+			
+			Dish nDish = new Dish(dish_id, name, category_id, description, price, image);
+			dishList.add(nDish);
+		}
+		
+		return dishList;
+	}
+	
+	public static List<Dish> queryDishHigh2Low(Connection connection) throws SQLException {
+		String sql = "SELECT * FROM dishes "
+				+ "ORDER BY price DESC";
+		
+		PreparedStatement pstm = connection.prepareStatement(sql);
+		
+		ResultSet rs = pstm.executeQuery();
+		
+		List<Dish> dishList = new ArrayList<Dish>();
+		
+		while (rs.next()) {
+			int dish_id = rs.getInt("dish_id");
+			String name = rs.getString("name");
+			int category_id = rs.getInt("category_id");
+			String description = rs.getString("description");
+			int price = rs.getInt("price");
+			String image = rs.getString("image");
+			
+			Dish nDish = new Dish(dish_id, name, category_id, description, price, image);
+			dishList.add(nDish);
+		}
+		
+		return dishList;
+	}
+	
 	public static List<Product> queryDish(Connection connection, String id) throws SQLException {
 		String sql = "SELECT * FROM products "
 				+ "WHERE category_id = ?";
@@ -491,7 +541,7 @@ public class DBUtils {
 		ResultSet rs = pstm.executeQuery();
 		if (rs.next()) {
 			int category_id = rs.getInt("category_id");
-			sql = "INSERT INTO products (name, category_id, description, price) VALUES ('"
+			sql = "INSERT INTO dishes (name, category_id, description, price) VALUES ('"
 					+ name + "', " + category_id + ", '" + description + "', " + price + ");";
 			connection.prepareStatement(sql).executeUpdate();
 			System.out.println("Added successfully");
@@ -499,6 +549,27 @@ public class DBUtils {
 		}
 
 		return 0;
+	}
+	
+	public static List<Product> queryallDish(Connection connection) throws SQLException {
+		String sql = "SELECT * FROM products";
+		PreparedStatement pstm = connection.prepareStatement(sql);
+		List<Product> dishList = new ArrayList<Product>();
+		
+		ResultSet rs = pstm.executeQuery();
+		
+		while (rs.next()) {
+			int dish_id = rs.getInt("dish_id");
+			String name = rs.getString("name");
+			int category_id = rs.getInt("category_id");
+			String description = rs.getString("description");
+			int price = rs.getInt("price");
+			
+			Product nDish = new Product(dish_id, name, description, price);
+			dishList.add(nDish);
+		}
+
+		return dishList;
 	}
 	
 	public static List<Category> queryallCategory(Connection connection) throws SQLException {
@@ -627,6 +698,38 @@ public class DBUtils {
 		pstm.setInt(1, id);
 		pstm.executeUpdate();
 		return 1;
+	}
+	
+	public static List<User> getAllUsers(Connection connection) throws SQLException {
+		String sql = "SELECT * FROM users";
+		
+		PreparedStatement pstm = connection.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		int is_admin = 0;
+		List<User> users = new ArrayList<User>();
+		
+		if (rs.next()) {
+			is_admin = rs.getInt("is_admin");
+			int id = rs.getInt("user_id");
+			String account = rs.getString("account");
+			String userPassword = rs.getString("password");
+			String email = rs.getString("email");
+			String name = rs.getString("name");
+			String address = rs.getString("address");
+			String phone = rs.getString("phone");
+			
+			if (is_admin != 0) {
+				Admin admin = new Admin(id, account, userPassword, email, name, address, phone, is_admin);
+				users.add(admin);
+				
+			} else {
+				int point = rs.getInt("point");
+				int membership = rs.getInt("membership");
+				Customer customer = new Customer(id, account, userPassword, email, name, address, phone, is_admin, point, membership);
+				users.add(customer);
+			}
+		}
+		return users;
 	}
 	
 	public static void main(String args[]) throws SQLException {

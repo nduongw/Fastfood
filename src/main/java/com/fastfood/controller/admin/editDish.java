@@ -16,6 +16,7 @@ import com.fastfood.model.ConnectDatabase;
 import com.fastfood.utils.DBUtils;
 import com.fastfood.entity.Admin;
 import com.fastfood.entity.Dish;
+import com.fastfood.entity.Product;
 
 
 @WebServlet(urlPatterns = {"/edit"})
@@ -32,7 +33,7 @@ public class editDish extends HttpServlet {
 
 		ConnectDatabase con = new ConnectDatabase();
 		Connection dbcon = con.getJDBCConnection();
-		Dish result = null;
+		Product result = null;
 		Admin admin = new Admin();
 		admin.editDish(dbcon, id, result);
 		
