@@ -35,6 +35,8 @@
 					<th >Address</th>
 					<th >Phone</th>
 					<th >Total spent</th>
+					<th >Change</th>
+					<th >Remove</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -56,9 +58,6 @@
 		
 	</div>
 	<div style="display: flex; justify-content: center; margin-top: 50px; color: #fff; padding-right: 700px; font-size: 30px;"><h3>Total Price: ${totalIncome} VND</h3> </div>
-	<div style="display: flex; justify-content: center">
-         <a class="button" href="checkout">Check Out</a></div>
-     <div style="display: flex; justify-content: center; margin-top: 20px">
          <a href="showDish" style="color: #fff; font-size: 1.5rem">Back</a></div>
          
 	

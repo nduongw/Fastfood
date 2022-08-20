@@ -608,9 +608,9 @@ public class DBUtils {
 	}
 	
 	public static int deleteDish(Connection connection, int dish_id) throws SQLException {
-		String sql = "DELETE FROM dishes WHERE dish_id = ?";
-		String sql2 = "DELETE FROM favorites WHERE dish_id = ?";
-		String sql3 = "DELETE FROM receipts_dishes WHERE dish_id = ?";
+		String sql = "DELETE FROM products WHERE product_id = ?";
+		String sql2 = "DELETE FROM favorites WHERE product_id = ?";
+		String sql3 = "DELETE FROM receipts_products WHERE product_id = ?";
 		
 		PreparedStatement pstm = connection.prepareStatement(sql2);
 		pstm.setInt(1, dish_id);
@@ -664,7 +664,7 @@ public class DBUtils {
 			int status = rs.getInt("status");
 			Date time = rs.getDate(4);
 			int payment = rs.getInt("payment");
-			int total_payment = rs.getInt("total_payment");
+			int total_payment = rs.getInt("total");
 
 			Receipt receipt = new Receipt(receipt_id, user_id, status, time, payment, total_payment);
 			receipts.add(receipt);
@@ -686,7 +686,7 @@ public class DBUtils {
 	}
 	
 	public static int removeReceipt(Connection connection, int id) throws SQLException {
-		String sql = "DELETE FROM receipts_dishes WHERE receipt_id = ?";
+		String sql = "DELETE FROM receipts_products WHERE receipt_id = ?";
 		String sql2 = "DELETE FROM receipts WHERE receipt_id = ?";
 		
 		
@@ -708,7 +708,7 @@ public class DBUtils {
 		int is_admin = 0;
 		List<User> users = new ArrayList<User>();
 		
-		if (rs.next()) {
+		while (rs.next()) {
 			is_admin = rs.getInt("is_admin");
 			int id = rs.getInt("user_id");
 			String account = rs.getString("account");
@@ -729,6 +729,7 @@ public class DBUtils {
 				users.add(customer);
 			}
 		}
+		
 		return users;
 	}
 	
@@ -762,9 +763,9 @@ public class DBUtils {
 //			System.out.println(dish.getName());
 //		}
 		
-		List<Product> products = DBUtils.getFavourites(conn, 6);
+		List<User> products = DBUtils.getAllUsers(conn);
 		
-		for (Product product: products) {
+		for (User product: products) {
 			System.out.println(product.getName());
 		}
 		

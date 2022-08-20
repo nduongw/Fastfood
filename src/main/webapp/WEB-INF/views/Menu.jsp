@@ -34,6 +34,14 @@
 	                <c:if test="${sessionScope.userAcc.is_admin >= 1}">
 	                <li><a class="main-nav-link" href="add">Add Product</a></li>
 	                </c:if>
+	                
+	                <c:if test="${sessionScope.userAcc.is_admin >= 1}">
+	                <li><a class="main-nav-link" href="manage-account">Manage Account</a></li>
+	                </c:if>
+	                
+	                <c:if test="${sessionScope.userAcc.is_admin >= 1}">
+	                <li><a class="main-nav-link" href="manage-receipts">Manage Receipts</a></li>
+	                </c:if>
 	              
 	                <c:if test="${sessionScope.userAcc != null}">
 	                 <c:if test="${sessionScope.userAcc.is_admin == 0}">

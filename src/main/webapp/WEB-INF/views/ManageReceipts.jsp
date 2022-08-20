@@ -54,7 +54,7 @@
 			</tbody>
 		</table>
 		
-	</div>
+	<div>
          <a href="showDish" style="color: #fff; font-size: 1.5rem">Back</a></div>
          
 	
